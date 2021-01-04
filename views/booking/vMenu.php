@@ -1,0 +1,102 @@
+<!-- Sidebar -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a href="https://instagram.com/arditriheru" class="navbar-brand" target="_blank">S I M E T R I S</a>
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class="collapse navbar-collapse navbar-ex1-collapse">
+    <ul class="nav navbar-nav side-nav">
+      <li><a href="<?php echo base_url('booking/dataBooking') ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+      <li><a href="<?php echo base_url('booking/dataBooking/dataRegister') ?>"><i class="fa fa-check-square-o"></i> Hari Ini</a></li>
+
+      <?php if($this->session->userdata('akses')=='Admin'){ ?>
+
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <i class="fa fa-plus"></i> Poliklinik <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="<?php echo base_url('booking/dataBooking/tambahDataPoli/1') ?>">Lihat</a></li>
+              <li><a href="<?php echo base_url('booking/dataBooking/tambahDataPoli/2') ?>">Tambah</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-plus"></i> Tumbuh Kembang <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="<?php echo base_url('booking/dataBooking/tambahDataTumbang/1') ?>">Lihat</a></li>
+                <li><a href="<?php echo base_url('booking/dataBooking/tambahDataTumbang/2') ?>">Tambah</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-plus"></i> Antenatal Care <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="<?php echo base_url('booking/dataBooking/tambahDataAnc/1') ?>">Lihat</a></li>
+                  <li><a href="<?php echo base_url('booking/dataBooking/tambahDataAnc/2') ?>">Tambah</a></li>
+                </ul>
+              </li>
+
+            <?php } ?>
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-calendar-check-o"></i> Jadwal Dokter <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="<?php echo base_url('booking/dataJadwal') ?>">Lihat</a></li>
+                  <li><a href="<?php echo base_url('booking/dataJadwal/tambahDataJadwal/2') ?>">Tambah</a></li>
+                </ul>
+              </li>
+              <li>
+                <a href="<?php echo base_url('booking/dataAntrian/filterDataAntrian/1') ?>">
+                  <i class="fa fa-bell-o"></i> Bell Antrian
+                </a>
+              </li>
+              <li>
+                <a href="<?php echo base_url('booking/dataWhatsapp') ?>">
+                  <i class="fa fa-whatsapp"></i> WhatsApp
+                </a>
+              </li>
+              <li>
+                <a href="<?php echo base_url('booking/dataSkrining') ?>">
+                  <i class="fa fa-pencil-square-o"></i> Skrining
+                </a>
+              </li>
+              <li>
+                <a href="<?php echo base_url('booking/dataPetugas') ?>">
+                  <i class="fa fa-user-md"></i> Petugas Medis
+                </a>
+              </li>
+              <li>
+                <a href="<?php echo base_url('booking/dataKamar') ?>">
+                  <i class="fa fa-bed"></i> Info Kamar
+                </a>
+              </li>
+              <li>
+                <a href="<?php echo base_url('booking/dataBooking/dataRedZone') ?>">
+                  <i class="fa fa-warning"></i> Zona Merah
+                </a>
+              </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right navbar-user">
+              <li>
+                <a href="https://instagram.com/arditriheru" target="_blank">
+                  <span class="label label-success">ONLINE</span>
+                </a>
+              </li>
+              <li class="dropdown user-dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user-circle"></i> <?php echo $this->session->userdata('akses').' / '.$this->session->userdata('nama_petugas'); ?> <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="<?php echo base_url('booking/login/logout') ?>"><i class="fa fa-power-off"></i> Log Out</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div><!-- /.navbar-collapse -->
+        </nav>
