@@ -20,80 +20,80 @@
           <div class="col-lg-4"><br>
             <button name="next" type="submit" 
             class="btn btn-primary" onClick="window.location.reload()"><i class="fa fa-refresh"></i> Refresh</button>
-            <a href="<?php echo base_url('booking/DataAntrian/selesaiAntrian') ?>"><button name="next" type="submit" 
-              class="btn btn-danger"><i class="fa fa-close"></i> Selesai</button></a>
-            </div>
-            <div align="right" class="col-lg-8">
-              <h1><small>Total <?php echo $total; ?> Pasien</small></h1>
-            </div>
-            <div class="table-responsive">
-              <table class="table table-bordered table-hover table-striped tablesorter">
-                <thead>
-                  <tr>
-                    <th class="text-center">#</i></th>
-                    <th class="text-center" colspan="2">Bell</i></th>
-                    <th class="text-center">Status</i></th>
-                    <th class="text-center">Nomor.RM</i></th>
-                    <th class="text-center">Nama</i></th>
-                    <th class="text-center">Alamat</i></th>
-                    <th class="text-center">Sesi</i></th>
-                    <th class="text-center">Timer</i></th>
-                    <th class="text-center">Action</i></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php $no = 1; foreach ($dataantrian as $d) : ?>
-                  <tr class="active">
-                    <td class="text-center"><?php echo $d->noant;?></td>
-                    <td class="text-center">
-
-                      <?php
-                      if($d->aktif==1){ ?>
-                        <button type='button' class='btn btn-info'><i class='fa fa-play'></i></button>
-                      <?php }else{ ?>
-                        <a href="<?php echo base_url('booking/dataAntrian/aktifAksi/').$d->id_booking?>"><button type='button' class='btn btn-link'><i class='fa fa-stop'></i></button></a>
-                      <?php }
-                      ?>
-
-                    </td>
-                    <td>
-                      <div align="center">
-                        <button type="button" id="<?php echo $d->noant ?>" onclick="mulai(this.id);" class="btn btn-success"><i class='fa fa-volume-up'></i></button>
-                      </div>
-                    </td>
-                    <td><center><?php
-                    if($d->status=='Datang'){ ?>
-                      <button type='button' class='btn btn-primary'><i class='fa fa-check'></i></button>
-                    <?php }else{ ?>
-                      <button type='button' class='btn btn-danger'><i class='fa fa-times'></i></button>
-                    <?php }
-                    ?>
-                  </center></td>
-                  <td class="text-center"><?php echo $d->id_catatan_medik;?></td>
-                  <td class="text-center"><?php echo $d->nama;?></td>
-                  <td class="text-center"><?php echo $d->alamat;?></td>
-                  <td class="text-center"><?php echo $d->nama_sesi;?></td>
-                  <td><center>
+            <a href="<?php echo base_url('booking/DataAntrian/selesaiAntrian') ?>">
+              <button name="next" type="submit" 
+              class="btn btn-danger"><i class="fa fa-close"></i> Selesai</button>
+            </a>
+            <a href="<?php echo base_url('booking/DataAntrian/excelData?dokter='.$this->session->userdata('id_dokter').'&sesi='.$this->session->userdata('id_sesi')) ?>">
+              <button name="next" type="submit" 
+              class="btn btn-success"><i class="fa fa-download"></i> Excel</button>
+            </a>
+          </div>
+          <div align="right" class="col-lg-8">
+            <h1><small>Total <?php echo $total; ?> Pasien</small></h1>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-bordered table-hover table-striped tablesorter">
+              <thead>
+                <tr>
+                  <th class="text-center">Status</i></th>
+                  <th class="text-center">#</i></th>
+                  <th class="text-center">Bell</i></th>
+                  <th class="text-center">Timer</i></th>
+                  <th class="text-center">Nomor.RM</i></th>
+                  <th class="text-center">Nama</i></th>
+                  <th class="text-center">Alamat</i></th>
+                  <th class="text-center">Sesi</i></th>
+                  <th class="text-center">Action</i></th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php $no = 1; foreach ($dataantrian as $d) : ?>
+                <tr class="active">
+                  <td><center><?php
+                  if($d->status=='Datang'){
+                    echo "<button type='button' class='btn btn-primary'><i class='fa fa-check'></i></button>";
+                  }else{
+                    echo "<button type='button' class='btn btn-danger'><i class='fa fa-times'></i></button>";
+                  }
+                  ?>
+                </center></td>
+                <td><center><?php echo $d->noant ?></center></td>
+                <td>
+                  <div align="center">
                     <?php
-                    if($d->mulai=="00:00:00"){ ?>
+                    if($d->aktif=='1'){ ?>
+                      <button type="button" id="<?php echo $d->noant ?>" onclick="mulai(this.id);" class="btn btn-success"><i class='fa fa-volume-up'></i></button>
+                    <?php }else{ ?>
+                      <a href="<?php echo base_url('booking/dataAntrian/aktifAksi/'.$d->id_booking) ?>"><button type="button" class="btn btn-link"><i class="fa fa-stop"></i></button></a>
+                    <?php } ?>
+                  </div>
+                </td>
+                <td><center>
+                  <?php
+                  if($d->mulai=="00:00:00"){ ?>
 
-                      <a href="<?php echo base_url('booking/dataAntrian/dilayaniMulai/'.$d->id_booking) ?>"><button type='button' class='btn btn-primary'><i class='fa fa-clock-o'></i></button></a>
+                    <a href="<?php echo base_url('booking/dataAntrian/dilayaniMulai/'.$d->id_booking) ?>"><button type='button' class='btn btn-primary'><i class='fa fa-hourglass-start'></i></button></a>
 
-                    <?php }elseif($d->akhir=="00:00:00"){ ?>
+                  <?php }elseif($d->akhir=="00:00:00"){ ?>
 
-                      <a href="<?php echo base_url('booking/dataAntrian/dilayaniAkhir/'.$d->id_booking) ?>"><button type='button' class='btn btn-danger'><i class='fa fa-clock-o'></i></button></a>
+                   <a href="<?php echo base_url('booking/dataAntrian/dilayaniAkhir/'.$d->id_booking) ?>"><button type='button' class='btn btn-warning'><i class='fa fa-hourglass-end'></i></button></a>
 
-                    <?php }else{
+                 <?php }else{
 
                     $mulai = strtotime($d->mulai); //waktu mulai
                     $akhir = strtotime($d->akhir); //waktu akhir
                     $diff  = $akhir - $mulai;
                     $jam   = floor($diff/(60*60));
                     $menit = $diff-$jam*(60*60);
-                    echo "'".$jam." ''".floor($menit/60);
+                    echo $jam."' ".floor($menit/60)."''";
 
                   } ?>
                 </center></td>
+                <td><center><?php echo $d->id_catatan_medik ?></center></td>
+                <td><center><?php echo $d->nama ?></center></td>
+                <td><center><?php echo $d->alamat ?></center></td>
+                <td><center><?php echo $d->nama_sesi ?></center></td>
                 <td class="text-center">              
                   <a href="<?php echo base_url('booking/dataBooking/detailDataPoli/'.$d->id_booking) ?>"><button type="button" class="btn btn-warning"><i class='fa fa-folder-open'></i></button></a>
                 </td>
