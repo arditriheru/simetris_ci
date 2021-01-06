@@ -245,7 +245,7 @@ class dataAntrian extends CI_Controller
 		$where 		= array('id_booking' => $id);
 
 		$this->mSimetris->updateData('booking',$data,$where);
-		redirect('booking/dataAntrian/dataAntrian');
+		redirect('booking/dataAntrian/dataAntrian/'.$id);
 	}
 
 	public function dilayaniAkhir($id)
@@ -255,7 +255,36 @@ class dataAntrian extends CI_Controller
 		$where 		= array('id_booking' => $id);
 
 		$this->mSimetris->updateData('booking',$data,$where);
-		redirect('booking/dataAntrian/dataAntrian');
+		redirect('booking/dataAntrian/dataAntrian/'.$id);
+	}
+
+	public function excelData()
+	{
+		$id_dokter 	= $this->input->get('dokter');
+		$id_sesi 	= $this->input->get('sesi');
+		$getDateNow	= getDateNow();
+
+		$data['data'] = $this->db->query("
+			SELECT id_catatan_medik,nama,mulai,akhir
+			FROM booking
+			WHERE id_dokter = '$id_dokter'
+			AND id_sesi = '$id_sesi'
+			AND booking_tanggal = '$getDateNow'
+			ORDER BY id_booking ASC")->result();
+
+		$nama_dokter = $this->db->query("
+			SELECT nama_dokter
+			FROM dokter 
+			WHERE id_dokter = '$id_dokter'
+			")->result();
+
+		foreach ($nama_dokter as $d) {
+			$data['nama_dokter'] = $d->nama_dokter;
+		}
+
+		$this->load->view('templates/header',$data);
+		$this->load->view('booking/vExcelDataJamLayanan',$data);
+		$this->load->view('templates/footer',$data);
 	}
 
 } 
