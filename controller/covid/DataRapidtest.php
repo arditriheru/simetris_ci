@@ -32,7 +32,7 @@ class dataRapidtest extends CI_Controller
 
 		// $data['datarapidtest'] = $this->mSimetris->getData('rapidtest')->result();
 		$data['rapidtest'] = $this->db->query("
-			SELECT rapidtest.id_rapidtest, rapidtest.id_catatan_medik, rapidtest.tanggal, rapidtest.jam, mr_pasien.nama, mr_dokter.nama_dokter,
+			SELECT rapidtest.id_rapidtest, rapidtest.id_catatan_medik, rapidtest.tanggal, rapidtest.jam, rapidtest.igm, rapidtest.igg, mr_pasien.nama, mr_dokter.nama_dokter,
 			CASE
 			WHEN rapidtest.igm='0' THEN 'Non Reaktif'
 			WHEN rapidtest.igm='1' THEN 'Reaktif'
