@@ -44,18 +44,18 @@
               <table class="table table-bordered table-hover table-striped tablesorter">
                 <thead>
                   <tr>
-                    <th class="text-center"># <i class="fa fa-sort"></i></th>
-                    <th class="text-center">Tanggal <i class="fa fa-sort"></i></th>
-                    <th class="text-center">No.RM <i class="fa fa-sort"></i></th>
-                    <th class="text-center">Nama Pasien <i class="fa fa-sort"></i></th>
+                    <th class="text-center">#</i></th>
+                    <th class="text-center">Tanggal</i></th>
+                    <th class="text-center">No.RM</i></th>
+                    <th class="text-center">Nama Pasien</i></th>
                     <th class="text-center">Unit</th>
-                    <th class="text-center">IgM <i class="fa fa-sort"></i></th>
-                    <th class="text-center">IgG <i class="fa fa-sort"></i></th>
+                    <th class="text-center">IgM</i></th>
+                    <th class="text-center">IgG</i></th>
                   </tr>
                 </thead>
                 <tbody>
                   <?php $no = 1; foreach ($rapidtest as $r) : ?>
-                  <tr class="active">
+                  <tr>
                     <td class="text-center"><?php echo $no++; ?></td>
                     <td class="text-center"><?php echo $r->tanggal;
                     ?></td>

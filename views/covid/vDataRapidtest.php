@@ -75,13 +75,13 @@
 						<table class="table table-bordered table-hover table-striped tablesorter">
 							<thead>
 								<tr>
-									<th class="text-center"># <i class="fa fa-sort"></i></th>
-									<th class="text-center">No.RM <i class="fa fa-sort"></i></th>
-									<th class="text-center">Nama Pasien <i class="fa fa-sort"></i></th>
-									<th class="text-center">Dokter <i class="fa fa-sort"></i></th>
-									<th class="text-center">IgM <i class="fa fa-sort"></i></th>
-									<th class="text-center">IgG <i class="fa fa-sort"></i></th>
-									<th class="text-center">Registrasi <i class="fa fa-sort"></i></th>
+									<th class="text-center">#</i></th>
+									<th class="text-center">No.RM</i></th>
+									<th class="text-center">Nama Pasien</i></th>
+									<th class="text-center">Dokter</i></th>
+									<th class="text-center">IgM</i></th>
+									<th class="text-center">IgG</i></th>
+									<th class="text-center">Registrasi</i></th>
 									<?php if($this->session->userdata('akses') =='Admin') { ?>
 										<th class="text-center" colspan="3">Action</th>
 									<?php } ?>
@@ -89,18 +89,25 @@
 							</thead>
 							<tbody>
 								<?php $no = $totaldata; foreach ($rapidtest as $d) : ?>
-								<tr class="active">
+								<tr>
 									<td class="text-center"><?php echo $no--; ?></td>
-									<td class="text-center"><?php echo $d->id_catatan_medik;
-									?></td>
-									<td class="text-center"><?php echo $d->nama;
-									?></td>
-									<td class="text-center"><?php echo $d->nama_dokter;
-									?></td>
-									<td class="text-center"><?php echo $d->nama_igm;
-									?></td>
-									<td class="text-center"><?php echo $d->nama_igg;
-									?></td>
+									<td class="text-center"><?php echo $d->id_catatan_medik ?></td>
+									<td class="text-center"><?php echo $d->nama ?></td>
+									<td class="text-center"><?php echo $d->nama_dokter ?></td>
+									<?php 
+									if($d->igm==1){
+										echo '<td class="text-center link-danger"><p class="text-danger">'.$d->nama_igm.'</p></td>';
+									}else{
+										echo '<td class="text-center">'.$d->nama_igm.'</td>';
+									}
+									?>
+									<?php 
+									if($d->igg==1){
+										echo '<td class="text-center link-danger"><p class="text-danger">'.$d->nama_igg.'</p></td>';
+									}else{
+										echo '<td class="text-center">'.$d->nama_igg.'</td>';
+									}
+									?>
 									<td class="text-center"><?php echo $d->tanggal.' / '.$d->jam;
 									?></td>
 									<?php if($this->session->userdata('akses') =='Admin') { ?>
