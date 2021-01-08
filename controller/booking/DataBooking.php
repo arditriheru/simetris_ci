@@ -81,9 +81,9 @@ class dataBooking extends CI_Controller
 			ORDER BY anc.id_sesi, anc.id_petugas, anc.nama ASC")->result();
 
 		// autodelete
-		$this->db->query("DELETE FROM booking WHERE DATEDIFF(CURDATE(), booking_tanggal) > 7");
-		$this->db->query("DELETE FROM anc WHERE DATEDIFF(CURDATE(), jadwal) > 7");
-		$this->db->query("DELETE FROM tumbang WHERE DATEDIFF(CURDATE(), jadwal) > 7");
+		$this->db->query("DELETE FROM booking WHERE DATEDIFF(CURDATE(), booking_tanggal) > 30");
+		$this->db->query("DELETE FROM anc WHERE DATEDIFF(CURDATE(), jadwal) > 30");
+		$this->db->query("DELETE FROM tumbang WHERE DATEDIFF(CURDATE(), jadwal) > 30");
 		$this->db->query("DELETE FROM dokter_jadwal_libur WHERE DATEDIFF(CURDATE(), tanggal) > 1");
 
 		$this->load->view('templates/header',$data);
