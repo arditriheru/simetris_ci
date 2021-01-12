@@ -164,7 +164,7 @@
         <!-- tab2 -->
         <div class="tab-pane fade in" id="2">
           <div align="right" class="col-lg-6">
-            <h1><small>Total <?php echo $totaldatapoli1 ?> Pasien</small></h1>
+            <h1><small>Total <?php echo $totaldatapoli2 ?> Pasien</small></h1>
           </div>
 
         <div class="table-responsive">
