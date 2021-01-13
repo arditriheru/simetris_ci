@@ -62,8 +62,11 @@ class dataFarmasi extends CI_Controller
 		$this->load->view('templates/footer',$data);
 	}
 
-	function excelDataEdObat()
+	function printDataEdObat()
 	{
+		$data['title'] 		= "Data";
+		$data['subtitle'] 	= "Expired Date Obat";
+
 		$bln 	= $this->input->get('bln');
 		$thn 	= $this->input->get('thn');
 
@@ -90,7 +93,9 @@ class dataFarmasi extends CI_Controller
 
 		}
 
-		$this->load->view('manajemen/farmasi/vExcelDataEdObat',$data);
+		$this->load->view('templates/header',$data);
+		$this->load->view('manajemen/vMenu',$data);
+		$this->load->view('manajemen/farmasi/vPrintDataEdObat',$data);
 	}
 
 
