@@ -63,7 +63,7 @@
 
     <div class="row">
      <div class="col-lg-12">
-      <a href="<?php echo base_url('manajemen/dataFarmasi/excelDataEdObat?'.$data) ?>" type="button" name="excel" class="btn btn-primary"><i class="fa fa-download"></i> Excel</a><br><br>
+      <a href="<?php echo base_url('manajemen/dataFarmasi/printDataEdObat?'.$data) ?>" type="button" name="print" class="btn btn-primary"><i class="fa fa-print"></i> Print</a><br><br>
       <div class="table-responsive">
         <table class="table table-bordered table-hover table-striped tablesorter">
           <thead>
