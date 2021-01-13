@@ -16,23 +16,23 @@
             <p align="center"><strong>Expired Date Obat</strong></p>
             <p align="center"><strong><?php echo $data ?></strong></p>
             <tr>
-              <th><div align="center">No</div></th>
-              <th><div align="center">Kode Obat</div></th>
-              <th><div align="center">Nama Obat</div></th>
-              <th><div align="center">Stok Ralan</div></th>
-              <th><div align="center">Stok Ranap</div></th>
-              <th><div align="center">Expired Date</div></th>
+              <th class="text-center">No</th>
+              <th class="text-center">Kode Obat</th>
+              <th class="text-center">Nama Obat</th>
+              <th class="text-center">Stok Ralan</th>
+              <th class="text-center">Stok Ranap</th>
+              <th class="text-center">Expired Date</th>
             </tr>
           </thead>
           <tbody>
             <?php $no = 1; foreach ($dataedobat as $d) : ?>
             <tr>
-              <td><div align="center"><?php echo $no++; ?></div></td>
-              <td><div align="center"><?php echo $d->no_urut ?></div></td>
-              <td><div align="center"><?php echo $d->nama; ?></div></td>
-              <td><div align="center"><?php echo $d->stok_poli; ?></div></td>
-              <td><div align="center"><?php echo $d->stok_inap; ?></div></td>
-              <td><div align="center"><?php echo $d->tgl_ed; ?></div></td>
+              <td class="text-center"><?php echo $no++; ?></td>
+              <td class="text-center"><?php echo $d->no_urut ?></td>
+              <td class="text-left"><?php echo $d->nama; ?></td>
+              <td class="text-center"><?php echo $d->stok_poli; ?></td>
+              <td class="text-center"><?php echo $d->stok_inap; ?></td>
+              <td class="text-center"><?php echo $d->tgl_ed; ?></td>
             </tr>
           <?php endforeach ?>
         </tbody>

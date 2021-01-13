@@ -68,11 +68,11 @@
         <table class="table table-bordered table-hover table-striped tablesorter">
           <thead>
             <tr>
-              <th class="text-center">#</i></th>
-              <th class="text-center">Kode Obat</i></th>
-              <th class="text-center">Nama Obat</i></th>
-              <th class="text-center">Stok Ralan</i></th>
-              <th class="text-center">Stok Ranap</i></th>
+              <th class="text-center">#</th>
+              <th class="text-center">Kode Obat</th>
+              <th class="text-center">Nama Obat</th>
+              <th class="text-center">Stok Ralan</th>
+              <th class="text-center">Stok Ranap</th>
               <th class="text-center">Expired Date</th>
             </tr>
           </thead>
@@ -81,7 +81,7 @@
             <tr>
               <td class="text-center"><?php echo $no++; ?></td>
               <td class="text-center"><?php echo $d->no_urut; ?></td>
-              <td class="text-center"><?php echo $d->nama; ?></td>
+              <td class="text-left"><?php echo $d->nama; ?></td>
               <td class="text-center"><?php echo $d->stok_poli; ?></td>
               <td class="text-center"><?php echo $d->stok_inap; ?></td>
               <td class="text-center"><?php echo $d->tgl_ed; ?></td>
