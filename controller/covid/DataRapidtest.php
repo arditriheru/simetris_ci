@@ -25,7 +25,7 @@ class dataRapidtest extends CI_Controller
 		$data['title'] 		= "Dashboard";
 		$data['subtitle'] 	= "Rapidtest";
 
-		$data['nonreaktif'] = $this->db->query("SELECT id_catatan_medik FROM rapidtest WHERE igg=0 OR igm=0")->num_rows();
+		$data['nonreaktif'] = $this->db->query("SELECT id_catatan_medik FROM rapidtest WHERE igg=0 AND igm=0")->num_rows();
 		$data['iggreaktif'] = $this->db->query("SELECT id_catatan_medik FROM rapidtest WHERE igg=1")->num_rows();
 		$data['igmreaktif'] = $this->db->query("SELECT id_catatan_medik FROM rapidtest WHERE igm=1")->num_rows();
 		$data['totaldata'] = $this->db->query("SELECT * FROM rapidtest ORDER BY id_rapidtest DESC")->num_rows();
@@ -233,7 +233,6 @@ class dataRapidtest extends CI_Controller
 		$this->load->view('templates/header',$data);
 		$this->load->view('covid/vMenu',$data);
 		$this->load->view('covid/vPrintDataRapidtest',$data);
-		$this->load->view('templates/footer',$data);
 	}
 
 	public function deleteData($id)
