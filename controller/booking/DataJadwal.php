@@ -7,7 +7,7 @@ class dataJadwal extends CI_Controller
 	{
 		parent::__construct();
 
-		if($this->session->userdata('login') !='1')
+		if($this->session->userdata('booking_login') !='1')
 		{
 			$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -28,7 +28,7 @@ class dataJadwal extends CI_Controller
 		$data['datadokter'] = $this->db->query("SELECT id_dokter, nama_dokter FROM dokter WHERE status='1'")->result();
 
 		$data['datajadwal'] 	= $this->db->query("
-			SELECT *, dokter.nama_dokter,
+			SELECT *, dokter.nama_dokter, sesi.nama_sesi,
 			IF (dokter_jadwal.ims='1', ' + Imunisasi','') AS ims,
 			CASE
 			WHEN dokter.id_unit='1' THEN 'Anak'
@@ -47,6 +47,8 @@ class dataJadwal extends CI_Controller
 			FROM dokter_jadwal
 			JOIN dokter
 			ON dokter_jadwal.id_dokter=dokter.id_dokter
+			join sesi
+			ON dokter_jadwal.id_sesi=sesi.id_sesi
 			ORDER BY dokter_jadwal.hari ASC")->result();
 
 
@@ -75,7 +77,7 @@ class dataJadwal extends CI_Controller
 		$data['datadokter'] = $this->db->query("SELECT id_dokter, nama_dokter FROM dokter WHERE status='1'")->result();
 
 		$data['datajadwal'] 	= $this->db->query("
-			SELECT *, dokter.nama_dokter,
+			SELECT *, dokter.nama_dokter, sesi.nama_sesi,
 			IF (dokter_jadwal.ims='1', ' + Imunisasi','') AS ims,
 			CASE
 			WHEN dokter.id_unit='1' THEN 'Anak'
@@ -94,7 +96,9 @@ class dataJadwal extends CI_Controller
 			FROM dokter_jadwal
 			JOIN dokter
 			ON dokter_jadwal.id_dokter=dokter.id_dokter
-			WHERE dokter_jadwal.id_dokter = '$id'
+			join sesi
+			ON dokter_jadwal.id_sesi=sesi.id_sesi
+			WHERE dokter_jadwal.id_dokter='$id'
 			ORDER BY dokter_jadwal.hari ASC")->result();
 
 
