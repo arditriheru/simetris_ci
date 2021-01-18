@@ -47,6 +47,7 @@
                 <th class="text-center">Hari</i></th>
                 <th class="text-center">Poli</i></th>
                 <th class="text-center">Nama Dokter</i></th>
+                <th class="text-center">Sesi</i></th>
                 <th class="text-center">Jam Praktek</i></th>
                 <th class="text-center">Kuota</th>
               </tr>
@@ -58,7 +59,8 @@
                 <tr>
                   <td class="text-center"><a href="<?php echo base_url('booking/dataJadwal/updateDataJadwal/').$d->id_jadwal ?>"><?php echo $d->nama_hari; ?></a></td>
                   <td class="text-center"><?php echo $d->nama_unit; ?></td>
-                  <td class="text-left"><?php echo $d->nama_dokter; ?></td>
+                  <td class="text-center"><?php echo $d->nama_dokter; ?></td>
+                  <td class="text-center"><?php echo $d->nama_sesi; ?></td>
                   <td class="text-center"><?php echo $d->jam.$d->ims; ?></td>
                   <td class="text-center"><?php echo $d->kuota; ?></td>
                 </tr>
