@@ -7,7 +7,7 @@ class dataBooking extends CI_Controller
 	{
 		parent::__construct();
 
-		if($this->session->userdata('login') !='1')
+		if($this->session->userdata('booking_login') !='1')
 		{
 			$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -672,9 +672,9 @@ class dataBooking extends CI_Controller
 				'id_sesi' 			=> $id_sesi,
 			);
 
-			$cekdaftar = $this->mSimetris->countData('booking',$where1);
+			$cekdaftar1 = $this->mSimetris->countData('booking',$where1);
 
-			if($cekdaftar>0)
+			if($cekdaftar1>0)
 			{
 
 				$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
@@ -684,107 +684,126 @@ class dataBooking extends CI_Controller
 
 			}else{
 
-				$hari = date('w', strtotime($booking_tanggal));
-
 				$where2 = array(
-					'id_dokter' => $id_dokter,
-					'id_sesi' 	=> $id_sesi,
-					'hari' 		=> $hari,
+					'id_catatan_medik' 	=> $id_catatan_medik,
+					'tanggal' 			=> $tanggal,
 				);
 
-				$cekjadwal = $this->mSimetris->countData('dokter_jadwal',$where2);
+				$cekdaftar2 = $this->mSimetris->countData('booking',$where2);
 
-				if($cekjadwal>0)
+				if($cekdaftar2>0)
 				{
+					$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+						<font size="5">Hari Ini Sudah Mendaftar</font></div>');
+					redirect('booking/dataBooking/tambahDataPoli/'.$id);
+
+				}else{
+
+					$hari = date('w', strtotime($booking_tanggal));
 
 					$where3 = array(
 						'id_dokter' => $id_dokter,
 						'id_sesi' 	=> $id_sesi,
-						'tanggal' 	=> $booking_tanggal,
+						'hari' 		=> $hari,
 					);
 
-					$ceklibur = $this->mSimetris->countData('dokter_jadwal_libur',$where3);
+					$cekjadwal = $this->mSimetris->countData('dokter_jadwal',$where3);
 
-					if($ceklibur>0)
+					if($cekjadwal>0)
 					{
 
-						$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
-							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-							<font size="5">Jadwal Dokter Cuti</font></div>');
-						redirect('booking/dataBooking/tambahDataPoli/'.$id);
-
-					}else{
-
-						$hari = date('w', strtotime($booking_tanggal));
-
 						$where4 = array(
-							'booking_tanggal' 	=> $booking_tanggal,
-							'id_dokter' 		=> $id_dokter,
-							'id_sesi' 			=> $id_sesi,
-						);
-
-						$count = $this->mSimetris->countData('booking',$where4);
-						$noant = $count+1;
-
-						$where5 = array(
 							'id_dokter' => $id_dokter,
 							'id_sesi' 	=> $id_sesi,
-							'hari' 		=> $hari,
+							'tanggal' 	=> $booking_tanggal,
 						);
 
-						$kuota = $this->mSimetris->selectData('dokter_jadwal','kuota',$where5);
-						foreach($kuota->result() as $d)
-						{
-							$cekkuota = $d->kuota;
-						}
+						$ceklibur = $this->mSimetris->countData('dokter_jadwal_libur',$where4);
 
-						if($noant>$cekkuota)
+						if($ceklibur>0)
 						{
 
 							$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
 								<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-								<font size="5">Kuota Penuh</font></div>');
+								<font size="5">Jadwal Dokter Cuti</font></div>');
 							redirect('booking/dataBooking/tambahDataPoli/'.$id);
 
 						}else{
 
-							$data = array(
+							$hari = date('w', strtotime($booking_tanggal));
 
-								'nama' 				=> $nama,
-								'alamat' 			=> $alamat,
-								'kontak' 			=> $kontak,
-								'id_catatan_medik' 	=> $id_catatan_medik,
+							$where5 = array(
 								'booking_tanggal' 	=> $booking_tanggal,
-								'tanggal' 			=> $tanggal,
-								'jam' 				=> $jam,
-								'status' 			=> $status,
-								'keterangan' 		=> $keterangan,
 								'id_dokter' 		=> $id_dokter,
 								'id_sesi' 			=> $id_sesi,
-								'mandiri' 			=> $mandiri,
-								'antrian' 			=> $antrian,
-								'aktif' 			=> $aktif,
 							);
 
-							$this->mSimetris->insertData('booking',$data);
-							$this->session->set_flashdata('alert','<div class="alert alert-success alert-dismissable">
-								<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-								Berhasil mendaftar <font size="5"><b>Nomor Antrian : 
-								'.$noant.'</b></font></div>');
-							redirect('booking/dataBooking/tambahDataPoli/'.$id);
+							$count = $this->mSimetris->countData('booking',$where5);
+							$noant = $count+1;
+
+							$where6 = array(
+								'id_dokter' => $id_dokter,
+								'id_sesi' 	=> $id_sesi,
+								'hari' 		=> $hari,
+							);
+
+							$kuota = $this->mSimetris->selectData('dokter_jadwal','kuota',$where6);
+							foreach($kuota->result() as $d)
+							{
+								$cekkuota = $d->kuota;
+							}
+
+							if($noant>$cekkuota)
+							{
+
+								$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
+									<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+									<font size="5">Kuota Penuh</font></div>');
+								redirect('booking/dataBooking/tambahDataPoli/'.$id);
+
+							}else{
+
+								$data = array(
+
+									'nama' 				=> $nama,
+									'alamat' 			=> $alamat,
+									'kontak' 			=> $kontak,
+									'id_catatan_medik' 	=> $id_catatan_medik,
+									'booking_tanggal' 	=> $booking_tanggal,
+									'tanggal' 			=> $tanggal,
+									'jam' 				=> $jam,
+									'status' 			=> $status,
+									'keterangan' 		=> $keterangan,
+									'id_dokter' 		=> $id_dokter,
+									'id_sesi' 			=> $id_sesi,
+									'mandiri' 			=> $mandiri,
+									'antrian' 			=> $antrian,
+									'aktif' 			=> $aktif,
+								);
+
+								$this->mSimetris->insertData('booking',$data);
+								$this->session->set_flashdata('alert','<div class="alert alert-success alert-dismissable">
+									<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+									Berhasil mendaftar <font size="5"><b>Nomor Antrian : 
+									'.$noant.'</b></font></div>');
+								redirect('booking/dataBooking/tambahDataPoli/'.$id);
+
+							}
 
 						}
 
+					}else{
+
+						$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
+							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+							<font size="5">Jadwal Dokter Kosong</font></div>');
+						redirect('booking/dataBooking/tambahDataPoli/'.$id);
+
 					}
 
-				}else{
-
-					$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
-						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-						<font size="5">Jadwal Dokter Kosong</font></div>');
-					redirect('booking/dataBooking/tambahDataPoli/'.$id);
-
 				}
+
 			}
 
 		}
