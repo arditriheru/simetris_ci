@@ -63,7 +63,7 @@
 										<?php
 										$no = 1; foreach ($poli as $d) : 
 
-										if(isset($d->id_catatan_medik_hbsag) OR isset($d->id_catatan_medik_alergi_makanan)) { ?>
+										if(isset($d->id_catatan_medik_alergi)) { ?>
 
 											<tr class="danger">
 

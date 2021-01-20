@@ -91,28 +91,14 @@
               <table class="table table-bordered table-hover table-striped tablesorter">
                 <tbody>
                   <tr>
-                    <td><b>HBsAg</b></td>
+                    <td><b>Catatan Khusus</b><br><small>(Alergi obat/ makanan, HBsAg)</small></td>
                     <td>
                       <?php 
 
-                      if(isset($d->id_catatan_medik_hbsag)){ ?>
-                        Positif <a href="<?php echo base_url('booking/dataAlergi/hapusHbsag/'.$d->id_booking.'/'.$d->id_catatan_medik) ?>" onclick="javascript: return confirm('Anda yakin ubah negatif?')">(edit)</a>
+                      if(isset($d->id_catatan_medik_alergi)){ ?>
+                        <?php echo $d->nama_obat.', '.$d->keterangan ?>
                       <?php }else{ ?>
-                        Negatif <a href="<?php echo base_url('booking/dataAlergi/tambahHbsag/'.$d->id_booking.'/'.$d->id_catatan_medik) ?>" onclick="javascript: return confirm('Anda yakin ubah positif?')">(edit)</a>
-                      <?php } ?>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><b>Alergi Makanan</b></td>
-                    <td>
-                      <?php 
-
-                      if(isset($d->id_catatan_medik_alergi_makanan)){ ?>
-                        <?php echo $d->nama_makanan ?>
-                        <a href="<?php echo base_url('booking/dataAlergi/dataAlergiMakanan/2/'.$d->id_catatan_medik.'?id_booking='.$id) ?>"> (edit)</a> 
-                      <?php }else{ ?>
-                        Tidak
-                        <a href="<?php echo base_url('booking/dataAlergi/dataAlergiMakanan/1/'.$d->id_catatan_medik.'?id_booking='.$id) ?>"> (edit)</a>
+                        Tidak ada
                       <?php } ?>
                     </td>
                   </tr>
