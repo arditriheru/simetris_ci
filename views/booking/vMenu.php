@@ -17,7 +17,7 @@
       <li><a href="<?php echo base_url('booking/dataBooking') ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
       <li><a href="<?php echo base_url('booking/dataBooking/dataRegister') ?>"><i class="fa fa-check-square-o"></i> Hari Ini</a></li>
 
-      <?php if($this->session->userdata('akses')=='Admin'){ ?>
+      <?php if($this->session->userdata('booking_akses')=='Admin'){ ?>
 
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -51,7 +51,13 @@
                 <i class="fa fa-calendar-check-o"></i> Jadwal Dokter <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                   <li><a href="<?php echo base_url('booking/dataJadwal') ?>">Lihat</a></li>
-                  <li><a href="<?php echo base_url('booking/dataJadwal/tambahDataJadwal/2') ?>">Tambah</a></li>
+
+                  <?php if($this->session->userdata('booking_akses')=="Admin"){ ?>
+
+                    <li><a href="<?php echo base_url('booking/dataJadwal/tambahDataJadwal/2') ?>">Tambah</a></li>
+
+                  <?php } ?>
+
                 </ul>
               </li>
               <li>
@@ -69,11 +75,17 @@
                   <i class="fa fa-pencil-square-o"></i> Skrining
                 </a>
               </li>
-              <li>
-                <a href="<?php echo base_url('booking/dataPetugas') ?>">
-                  <i class="fa fa-user-md"></i> Petugas Medis
-                </a>
-              </li>
+
+              <?php if($this->session->userdata('booking_akses')=="Admin"){ ?>
+
+                <li>
+                  <a href="<?php echo base_url('booking/dataPetugas') ?>">
+                    <i class="fa fa-user-md"></i> Petugas Medis
+                  </a>
+                </li>
+
+              <?php } ?>
+
               <li>
                 <a href="<?php echo base_url('booking/dataKamar') ?>">
                   <i class="fa fa-bed"></i> Info Kamar
@@ -92,7 +104,7 @@
                 </a>
               </li>
               <li class="dropdown user-dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user-circle"></i> <?php echo $this->session->userdata('akses').' / '.$this->session->userdata('nama_petugas'); ?> <b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user-circle"></i> <?php echo $this->session->userdata('booking_akses').' / '.$this->session->userdata('booking_nama_petugas'); ?> <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                   <li><a href="<?php echo base_url('booking/login/logout') ?>"><i class="fa fa-power-off"></i> Log Out</a></li>
                 </ul>

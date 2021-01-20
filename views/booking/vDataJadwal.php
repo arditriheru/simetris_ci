@@ -57,7 +57,21 @@
               <?php if(isset($id)){ $no = 1; foreach ($datajadwal as $d) : ?>
 
                 <tr>
-                  <td class="text-center"><a href="<?php echo base_url('booking/dataJadwal/updateDataJadwal/').$d->id_jadwal ?>"><?php echo $d->nama_hari; ?></a></td>
+                  <td class="text-center">
+
+                    <?php if($this->session->userdata('booking_akses')=="Admin"){ ?>
+
+                      <a href="<?php echo base_url('booking/dataJadwal/updateDataJadwal/').$d->id_jadwal ?>">
+                        <?php echo $d->nama_hari; ?>
+                      </a>
+
+                    <?php }else{ ?>
+
+                      <?php echo $d->nama_hari; ?>
+
+                    <?php } ?>
+
+                  </td>
                   <td class="text-center"><?php echo $d->nama_unit; ?></td>
                   <td class="text-center"><?php echo $d->nama_dokter; ?></td>
                   <td class="text-center"><?php echo $d->nama_sesi; ?></td>
@@ -73,11 +87,14 @@
 
         <div class="col-lg-5">
 
-          <a href="<?php echo base_url('booking/dataJadwal/tambahDataJadwal/1') ?>">
-            <button type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Libur / Cuti</button>
-          </a>
+          <?php if($this->session->userdata('booking_akses')=="Admin"){ ?>
 
-          <br><br>
+            <a href="<?php echo base_url('booking/dataJadwal/tambahDataJadwal/1') ?>">
+              <button type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Libur / Cuti</button>
+            </a><br><br>
+
+          <?php } ?>
+
           <table class="table table-bordered table-hover table-striped tablesorter">
             <thead>
               <tr>
@@ -95,8 +112,14 @@
                 <td class="text-center"><?php echo formatDateIndo($d->tanggal); ?></td>
                 <td class="text-center"><?php echo $d->nama_dokter; ?></td>
                 <td class="text-center"><?php echo $d->nama_sesi; ?></td>
-                <td class="text-center">             
-                  <a href="<?php echo base_url('booking/dataJadwal/deleteDataJadwalLibur/'.$d->id_jadwal_libur) ?>" onclick="javascript: return confirm('Anda yakin hapus?')"><button type="button" class="btn btn-danger"><i class='fa fa-trash'></i></button></a>
+                <td class="text-center">
+
+                  <?php if($this->session->userdata('booking_akses')=="Admin"){ ?>
+
+                    <a href="<?php echo base_url('booking/dataJadwal/deleteDataJadwalLibur/'.$d->id_jadwal_libur) ?>" onclick="javascript: return confirm('Anda yakin hapus?')"><button type="button" class="btn btn-danger"><i class='fa fa-trash'></i></button></a>
+
+                  <?php } ?>
+
                 </td>
               </tr>
             <?php endforeach; ?>
