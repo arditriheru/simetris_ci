@@ -54,17 +54,15 @@ class dataBooking extends CI_Controller
 			GROUP BY anc.id_petugas")->result();
 
 		$data['poli'] = $this->db->query("
-			SELECT booking.id_booking, booking.id_catatan_medik,booking.nama, booking.keterangan, booking.kontak, booking.status, dokter.nama_dokter, sesi.nama_sesi, mr_hbsag.id_catatan_medik AS id_catatan_medik_hbsag, mr_alergi_makanan.id_catatan_medik AS id_catatan_medik_alergi_makanan,
+			SELECT booking.id_booking, booking.id_catatan_medik,booking.nama, booking.keterangan, booking.kontak, booking.status, dokter.nama_dokter, sesi.nama_sesi, mr_alergi.id_catatan_medik AS id_catatan_medik_alergi,
 			IF (booking.status='1', 'Datang', 'Belum Datang') AS STATUS
 			FROM booking
 			INNER JOIN dokter
 			ON booking.id_dokter=dokter.id_dokter
 			INNER JOIN sesi
 			ON booking.id_sesi=sesi.id_sesi
-			LEFT JOIN mr_hbsag
-			ON booking.id_catatan_medik = mr_hbsag.id_catatan_medik
-			LEFT JOIN mr_alergi_makanan
-			ON booking.id_catatan_medik = mr_alergi_makanan.id_catatan_medik
+			LEFT JOIN mr_alergi
+			ON booking.id_catatan_medik = mr_alergi.id_catatan_medik
 			WHERE booking.booking_tanggal= '$getDateNow'
 			ORDER BY booking.id_sesi, dokter.id_dokter, booking.nama ASC")->result();
 
@@ -160,17 +158,15 @@ class dataBooking extends CI_Controller
 
 		$where = array('id_booking' => $id);
 		$data['poli'] = $this->db->query("
-			SELECT booking.id_booking, booking.id_catatan_medik, booking.nama, booking.alamat, booking.booking_tanggal, booking.tanggal, booking.jam, booking.keterangan, booking.kontak, booking.status, dokter.nama_dokter, sesi.nama_sesi, mr_hbsag.id_catatan_medik AS id_catatan_medik_hbsag, mr_alergi_makanan.id_catatan_medik AS id_catatan_medik_alergi_makanan, mr_alergi_makanan.nama_makanan,
+			SELECT booking.id_booking, booking.id_catatan_medik, booking.nama, booking.alamat, booking.booking_tanggal, booking.tanggal, booking.jam, booking.keterangan, booking.kontak, booking.status, dokter.nama_dokter, sesi.nama_sesi, mr_alergi.id_catatan_medik AS id_catatan_medik_alergi, mr_alergi.nama_obat, mr_alergi.keterangan,
 			IF (booking.status='1', 'Datang', 'Belum Datang') AS nama_status
 			FROM booking
 			INNER JOIN dokter
 			ON booking.id_dokter=dokter.id_dokter
 			INNER JOIN sesi
 			ON booking.id_sesi=sesi.id_sesi
-			LEFT JOIN mr_hbsag
-			ON booking.id_catatan_medik = mr_hbsag.id_catatan_medik
-			LEFT JOIN mr_alergi_makanan
-			ON booking.id_catatan_medik = mr_alergi_makanan.id_catatan_medik
+			LEFT JOIN mr_alergi
+			ON booking.id_catatan_medik = mr_alergi.id_catatan_medik
 			WHERE booking.id_booking='$id'
 			ORDER BY booking.id_sesi, dokter.id_dokter, booking.nama ASC")->result();
 		$this->load->view('templates/header',$data);
