@@ -54,12 +54,18 @@ class dataBooking extends CI_Controller
 			GROUP BY anc.id_petugas")->result();
 
 		$data['poli'] = $this->db->query("
-			SELECT *, dokter.nama_dokter, sesi.nama_sesi,
-			IF (booking.status='1', 'Datang', 'Belum Datang') AS status
-			FROM booking, dokter, sesi
-			WHERE booking.id_dokter=dokter.id_dokter
-			AND booking.id_sesi=sesi.id_sesi
-			AND booking.booking_tanggal= '$getDateNow'
+			SELECT booking.id_booking, booking.id_catatan_medik,booking.nama, booking.keterangan, booking.kontak, booking.status, dokter.nama_dokter, sesi.nama_sesi, mr_hbsag.id_catatan_medik AS id_catatan_medik_hbsag, mr_alergi_makanan.id_catatan_medik AS id_catatan_medik_alergi_makanan,
+			IF (booking.status='1', 'Datang', 'Belum Datang') AS STATUS
+			FROM booking
+			INNER JOIN dokter
+			ON booking.id_dokter=dokter.id_dokter
+			INNER JOIN sesi
+			ON booking.id_sesi=sesi.id_sesi
+			LEFT JOIN mr_hbsag
+			ON booking.id_catatan_medik = mr_hbsag.id_catatan_medik
+			LEFT JOIN mr_alergi_makanan
+			ON booking.id_catatan_medik = mr_alergi_makanan.id_catatan_medik
+			WHERE booking.booking_tanggal= '$getDateNow'
 			ORDER BY booking.id_sesi, dokter.id_dokter, booking.nama ASC")->result();
 
 		$data['tumbang'] = $this->db->query("
@@ -150,15 +156,23 @@ class dataBooking extends CI_Controller
 	{
 		$data['title'] 		= "Detail";
 		$data['subtitle'] 	= "Poliklinik";
+		$data['id']			= $id;
 
 		$where = array('id_booking' => $id);
 		$data['poli'] = $this->db->query("
-			SELECT *, dokter.nama_dokter, sesi.nama_sesi,
-			IF (booking.status='1', 'Datang', 'Belum Datang') AS status
-			FROM booking, dokter, sesi
-			WHERE booking.id_dokter=dokter.id_dokter
-			AND booking.id_sesi=sesi.id_sesi
-			AND booking.id_booking='$id'")->result();
+			SELECT booking.id_booking, booking.id_catatan_medik, booking.nama, booking.alamat, booking.booking_tanggal, booking.tanggal, booking.jam, booking.keterangan, booking.kontak, booking.status, dokter.nama_dokter, sesi.nama_sesi, mr_hbsag.id_catatan_medik AS id_catatan_medik_hbsag, mr_alergi_makanan.id_catatan_medik AS id_catatan_medik_alergi_makanan, mr_alergi_makanan.nama_makanan,
+			IF (booking.status='1', 'Datang', 'Belum Datang') AS nama_status
+			FROM booking
+			INNER JOIN dokter
+			ON booking.id_dokter=dokter.id_dokter
+			INNER JOIN sesi
+			ON booking.id_sesi=sesi.id_sesi
+			LEFT JOIN mr_hbsag
+			ON booking.id_catatan_medik = mr_hbsag.id_catatan_medik
+			LEFT JOIN mr_alergi_makanan
+			ON booking.id_catatan_medik = mr_alergi_makanan.id_catatan_medik
+			WHERE booking.id_booking='$id'
+			ORDER BY booking.id_sesi, dokter.id_dokter, booking.nama ASC")->result();
 		$this->load->view('templates/header',$data);
 		$this->load->view('booking/vMenu',$data);
 		$this->load->view('booking/vDataDetailPoli',$data,$id);
@@ -667,14 +681,12 @@ class dataBooking extends CI_Controller
 
 			$where1 = array(
 				'id_catatan_medik' 	=> $id_catatan_medik,
-				'id_dokter' 		=> $id_dokter,
 				'booking_tanggal' 	=> $booking_tanggal,
-				'id_sesi' 			=> $id_sesi,
 			);
 
-			$cekdaftar1 = $this->mSimetris->countData('booking',$where1);
+			$cekdaftar = $this->mSimetris->countData('booking',$where1);
 
-			if($cekdaftar1>0)
+			if($cekdaftar>0)
 			{
 
 				$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
@@ -684,123 +696,105 @@ class dataBooking extends CI_Controller
 
 			}else{
 
+				$hari = date('w', strtotime($booking_tanggal));
+
 				$where2 = array(
-					'id_catatan_medik' 	=> $id_catatan_medik,
-					'tanggal' 			=> $tanggal,
+					'id_dokter' => $id_dokter,
+					'id_sesi' 	=> $id_sesi,
+					'hari' 		=> $hari,
 				);
 
-				$cekdaftar2 = $this->mSimetris->countData('booking',$where2);
+				$cekjadwal = $this->mSimetris->countData('dokter_jadwal',$where2);
 
-				if($cekdaftar2>0)
+				if($cekjadwal>0)
 				{
-					$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
-						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-						<font size="5">Hari Ini Sudah Mendaftar</font></div>');
-					redirect('booking/dataBooking/tambahDataPoli/'.$id);
-
-				}else{
-
-					$hari = date('w', strtotime($booking_tanggal));
 
 					$where3 = array(
 						'id_dokter' => $id_dokter,
 						'id_sesi' 	=> $id_sesi,
-						'hari' 		=> $hari,
+						'tanggal' 	=> $booking_tanggal,
 					);
 
-					$cekjadwal = $this->mSimetris->countData('dokter_jadwal',$where3);
+					$ceklibur = $this->mSimetris->countData('dokter_jadwal_libur',$where3);
 
-					if($cekjadwal>0)
+					if($ceklibur>0)
 					{
 
+						$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
+							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+							<font size="5">Jadwal Dokter Cuti</font></div>');
+						redirect('booking/dataBooking/tambahDataPoli/'.$id);
+
+					}else{
+
+						$hari = date('w', strtotime($booking_tanggal));
+
 						$where4 = array(
-							'id_dokter' => $id_dokter,
-							'id_sesi' 	=> $id_sesi,
-							'tanggal' 	=> $booking_tanggal,
+							'booking_tanggal' 	=> $booking_tanggal,
+							'id_dokter' 		=> $id_dokter,
+							'id_sesi' 			=> $id_sesi,
 						);
 
-						$ceklibur = $this->mSimetris->countData('dokter_jadwal_libur',$where4);
+						$count = $this->mSimetris->countData('booking',$where4);
+						$noant = $count+1;
 
-						if($ceklibur>0)
+						$where5 = array(
+							'id_dokter' => $id_dokter,
+							'id_sesi' 	=> $id_sesi,
+							'hari' 		=> $hari,
+						);
+
+						$kuota = $this->mSimetris->selectData('dokter_jadwal','kuota',$where5);
+						foreach($kuota->result() as $d)
+						{
+							$cekkuota = $d->kuota;
+						}
+
+						if($noant>$cekkuota)
 						{
 
 							$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
 								<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-								<font size="5">Jadwal Dokter Cuti</font></div>');
+								<font size="5">Kuota Penuh</font></div>');
 							redirect('booking/dataBooking/tambahDataPoli/'.$id);
 
 						}else{
 
-							$hari = date('w', strtotime($booking_tanggal));
+							$data = array(
 
-							$where5 = array(
+								'nama' 				=> $nama,
+								'alamat' 			=> $alamat,
+								'kontak' 			=> $kontak,
+								'id_catatan_medik' 	=> $id_catatan_medik,
 								'booking_tanggal' 	=> $booking_tanggal,
+								'tanggal' 			=> $tanggal,
+								'jam' 				=> $jam,
+								'status' 			=> $status,
+								'keterangan' 		=> $keterangan,
 								'id_dokter' 		=> $id_dokter,
 								'id_sesi' 			=> $id_sesi,
+								'mandiri' 			=> $mandiri,
+								'antrian' 			=> $antrian,
+								'aktif' 			=> $aktif,
 							);
 
-							$count = $this->mSimetris->countData('booking',$where5);
-							$noant = $count+1;
-
-							$where6 = array(
-								'id_dokter' => $id_dokter,
-								'id_sesi' 	=> $id_sesi,
-								'hari' 		=> $hari,
-							);
-
-							$kuota = $this->mSimetris->selectData('dokter_jadwal','kuota',$where6);
-							foreach($kuota->result() as $d)
-							{
-								$cekkuota = $d->kuota;
-							}
-
-							if($noant>$cekkuota)
-							{
-
-								$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
-									<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-									<font size="5">Kuota Penuh</font></div>');
-								redirect('booking/dataBooking/tambahDataPoli/'.$id);
-
-							}else{
-
-								$data = array(
-
-									'nama' 				=> $nama,
-									'alamat' 			=> $alamat,
-									'kontak' 			=> $kontak,
-									'id_catatan_medik' 	=> $id_catatan_medik,
-									'booking_tanggal' 	=> $booking_tanggal,
-									'tanggal' 			=> $tanggal,
-									'jam' 				=> $jam,
-									'status' 			=> $status,
-									'keterangan' 		=> $keterangan,
-									'id_dokter' 		=> $id_dokter,
-									'id_sesi' 			=> $id_sesi,
-									'mandiri' 			=> $mandiri,
-									'antrian' 			=> $antrian,
-									'aktif' 			=> $aktif,
-								);
-
-								$this->mSimetris->insertData('booking',$data);
-								$this->session->set_flashdata('alert','<div class="alert alert-success alert-dismissable">
-									<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-									Berhasil mendaftar <font size="5"><b>Nomor Antrian : 
-									'.$noant.'</b></font></div>');
-								redirect('booking/dataBooking/tambahDataPoli/'.$id);
-
-							}
+							$this->mSimetris->insertData('booking',$data);
+							$this->session->set_flashdata('alert','<div class="alert alert-success alert-dismissable">
+								<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+								Berhasil mendaftar <font size="5"><b>Nomor Antrian : 
+								'.$noant.'</b></font></div>');
+							redirect('booking/dataBooking/tambahDataPoli/'.$id);
 
 						}
 
-					}else{
-
-						$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
-							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-							<font size="5">Jadwal Dokter Kosong</font></div>');
-						redirect('booking/dataBooking/tambahDataPoli/'.$id);
-
 					}
+
+				}else{
+
+					$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+						<font size="5">Jadwal Dokter Kosong</font></div>');
+					redirect('booking/dataBooking/tambahDataPoli/'.$id);
 
 				}
 
