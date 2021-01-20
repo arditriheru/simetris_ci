@@ -1,5 +1,44 @@
 <body>
 
+  <!-- /#rekaman -->
+  <audio id="suarabel" src="<?php echo base_url('assets/rekaman/bell-bandara.mp3') ?>"></audio>
+  <audio id="suarabelnomorurut" src="<?php echo base_url('assets/rekaman/nomor-antrian.mp3') ?>"></audio>
+
+  <?php if($this->session->userdata('id_unit') == 2){ ?>
+
+    <audio id="suarabelabjad" src="<?php echo base_url('assets/rekaman/a.mp3') ?>"></audio>
+    <audio id="suarabelsuarabelloket" src="<?php echo base_url('assets/rekaman/ke-poli-kandungan.mp3') ?>"></audio>
+
+  <?php }else{ ?>
+
+    <audio id="suarabelabjad" src="<?php echo base_url('assets/rekaman/b.mp3') ?>"></audio>
+    <audio id="suarabelsuarabelloket" src="<?php echo base_url('assets/rekaman/ke-poli-anak.mp3') ?>"></audio>
+
+  <?php } ?>
+
+  <audio id="belas" src="<?php echo base_url('assets/rekaman/belas.mp3') ?>"></audio> 
+  <audio id="sebelas" src="<?php echo base_url('assets/rekaman/sebelas.mp3') ?>"></audio> 
+  <audio id="puluh" src="<?php echo base_url('assets/rekaman/puluh.mp3') ?>"></audio> 
+  <audio id="sepuluh" src="<?php echo base_url('assets/rekaman/sepuluh.mp3') ?>"></audio> 
+  <audio id="ratus" src="<?php echo base_url('assets/rekaman/ratus.mp3') ?>3"></audio> 
+  <audio id="seratus" src="<?php echo base_url('assets/rekaman/seratus.mp3') ?>"></audio>
+
+  <?php
+  $loket    = 1;
+  $tcounter = $this->session->userdata('tcounter');
+  $panjang  = strlen($tcounter);
+  $antrian  = $tcounter;
+
+  for($i=0;$i<$panjang;$i++){ ?>
+
+    <!--SUARA NOMOR URUT-->
+    <audio id="suarabel<?php echo $i;?>"
+      src="<?php echo base_url() ?>assets/rekaman/<?php echo substr($tcounter,$i,1); ?>.mp3" >
+    </audio>
+
+  <?php }
+  ?> 
+
   <div id="wrapper">
 
     <div id="page-wrapper">
@@ -63,7 +102,7 @@
                   <div align="center">
                     <?php
                     if($d->aktif=='1'){ ?>
-                      <button type="button" id="<?php echo $d->noant ?>" onclick="mulai(this.id);" class="btn btn-success"><i class='fa fa-volume-up'></i></button>
+                      <button type="button" id="<?php echo $d->noant ?>" onclick="play()" class="btn btn-success"><i class='fa fa-volume-up'></i></button>
                     <?php }else{ ?>
                       <a href="<?php echo base_url('booking/dataAntrian/aktifAksi/'.$d->id_booking) ?>"><button type="button" class="btn btn-link"><i class="fa fa-stop"></i></button></a>
                     <?php } ?>
@@ -108,59 +147,16 @@
 
   <!--</div> /#wrapper -->
 
-  <!-- /#rekaman -->
-  <audio id="suarabel" src="<?php echo base_url() ?>/assets/rekaman/bell-bandara.mp3"></audio>
-  <audio id="suarabelnomorurut" src="<?php echo base_url() ?>/assets/rekaman/nomor-antrian.mp3"></audio>
-  <?php
-  if($this->session->userdata('id_unit')=='1'){ ?>
-
-    <audio id="suarabelabjad" src="<?php echo base_url() ?>/assets/rekaman/b.mp3"></audio> 
-    <audio id="suarabelsuarabelloket" src="<?php echo base_url() ?>/assets/rekaman/ke-poli-anak.mp3"></audio>
-
-  <?php }else{ ?>
-
-    <audio id="suarabelabjad" src="<?php echo base_url() ?>/assets/rekaman/a.mp3"></audio>
-    <audio id="suarabelsuarabelloket" src="<?php echo base_url() ?>/assets/rekaman/ke-poli-kandungan.mp3"></audio>
-
-  <?php } ?>
-
-  <audio id="belas" src="<?php echo base_url() ?>/assets/rekaman/belas.mp3"></audio> 
-  <audio id="sebelas" src="<?php echo base_url() ?>/assets/rekaman/sebelas.mp3"></audio> 
-  <audio id="puluh" src="<?php echo base_url() ?>/assets/rekaman/puluh.mp3"></audio> 
-  <audio id="sepuluh" src="<?php echo base_url() ?>/assets/rekaman/sepuluh.mp3"></audio> 
-  <audio id="ratus" src="<?php echo base_url() ?>/assets/rekaman/ratus.mp3"></audio> 
-  <audio id="seratus" src="<?php echo base_url() ?>/assets/rekaman/seratus.mp3"></audio>
-  <p id="demo"></p>
-
-  <?php
-
-  $tcounter = $this->session->userdata('tcounter');
-  $panjang = strlen($tcounter);
-
-  for($i=0;$i<$panjang;$i++){ ?>
-
-    <!--SUARA NOMOR URUT-->
-    <audio id="suarabel<?php echo $i;?>"
-      src="<?php echo base_url() ?>assets/rekaman/<?php echo substr($tcounter,$i,1); ?>.mp3" >
-    </audio>
-
-  <?php } ?>
-
   <script type="text/javascript">
-    function mulai($clicked_id)
+    function play()
     {
-      document.getElementById("demo").innerHTML = $clicked_id;
-
-      var variableToSend = $clicked_id;
-      $.post("<?php echo base_url() ?>/booking/dataAntrian/dataAntrian", {variable: variableToSend});
-
       //MAINKAN SUARA BEL PADA SAAT AWAL
       document.getElementById('suarabel').pause();
       document.getElementById('suarabel').currentTime=0;
       document.getElementById('suarabel').play();
 
       //SET DELAY UNTUK MEMAINKAN REKAMAN NOMOR URUT    
-      totalwaktu=document.getElementById('suarabel').duration*1030; 
+      totalwaktu=document.getElementById('suarabel').duration*1030;
 
       //MAINKAN SUARA NOMOR URUT    
       setTimeout(function() {
@@ -179,9 +175,8 @@
       totalwaktu=totalwaktu+500;
 
       <?php
-
         //JIKA KURANG DARI 10 MAKA MAIKAN SUARA ANGKA1
-      if($tcounter<10){
+      if($antrian<10){
         ?>
         setTimeout(function() {
           document.getElementById('suarabel0').pause();
@@ -190,8 +185,7 @@
         }, totalwaktu);
         totalwaktu=totalwaktu+800;
         <?php   
-      }elseif($tcounter ==10){
-
+      }elseif($antrian ==10){
           //JIKA 10 MAKA MAIKAN SUARA SEPULUH
         ?>  
         setTimeout(function() {
@@ -201,8 +195,7 @@
         }, totalwaktu);
         totalwaktu=totalwaktu+800;
         <?php   
-      }elseif($tcounter ==11){
-
+      }elseif($antrian ==11){
           //JIKA 11 MAKA MAIKAN SUARA SEBELAS
         ?>  
         setTimeout(function() {
@@ -212,8 +205,7 @@
         }, totalwaktu);
         totalwaktu=totalwaktu+800;
         <?php   
-      }elseif($tcounter < 20){
-
+      }elseif($antrian < 20){
           //JIKA 12-20 MAKA MAIKAN SUARA ANGKA2+"BELAS"
         ?>          
         setTimeout(function() {
@@ -229,8 +221,7 @@
         }, totalwaktu);
         totalwaktu=totalwaktu+800;
         <?php   
-      }elseif($tcounter < 100){  
-
+      }elseif($antrian < 100){        
           //JIKA PULUHAN MAKA MAINKAN SUARA ANGKA1+PULUH+AKNGKA2
         ?>  
         setTimeout(function() {
@@ -252,8 +243,7 @@
         }, totalwaktu);
         totalwaktu=totalwaktu+800;
         <?php
-      }elseif($tcounter == 100){
-
+      }elseif($antrian == 100){
         //JIKA 100 MAKA MAIKAN SUARA SERATUS
         ?>
         setTimeout(function() {
@@ -263,42 +253,7 @@
         }, totalwaktu);
         totalwaktu=totalwaktu+800;
         <?php
-      }elseif($tcounter < 200){
-
-        //JIKA 101-109 MAKA MAIKAN SUARA SERATUS
-        ?>
-        setTimeout(function() {
-          document.getElementById('seratus').pause();
-          document.getElementById('seratus').currentTime=0;
-          document.getElementById('seratus').play();
-        }, totalwaktu);
-        totalwaktu=totalwaktu+800;
-        setTimeout(function() {
-          document.getElementById('suarabel2').pause();
-          document.getElementById('suarabel2').currentTime=0;
-          document.getElementById('suarabel2').play();
-        }, totalwaktu);
-        totalwaktu=totalwaktu+800;
-        <?php
-      }elseif($tcounter == 110){
-
-        //JIKA 101-109 MAKA MAIKAN SUARA SERATUS
-        ?>
-        setTimeout(function() {
-          document.getElementById('seratus').pause();
-          document.getElementById('seratus').currentTime=0;
-          document.getElementById('seratus').play();
-        }, totalwaktu);
-        totalwaktu=totalwaktu+800;
-        setTimeout(function() {
-          document.getElementById('sepuluh').pause();
-          document.getElementById('sepuluh').currentTime=0;
-          document.getElementById('sepuluh').play();
-        }, totalwaktu);
-        totalwaktu=totalwaktu+800;
-        <?php
       }else{
-
           //JIKA LEBIH DARI 100 
           //Karena aplikasi ini masih sederhana maka logina konversi hanya sampai 100
           //Selebihnya akan langsung disebutkan angkanya saja 
@@ -317,6 +272,7 @@
         }
       }
       ?>
+
       totalwaktu=totalwaktu+200;
       setTimeout(function() {
         document.getElementById('suarabelsuarabelloket').pause();
@@ -328,6 +284,7 @@
         document.getElementById('suarabelloket<?php echo $loket; ?>').pause();
         document.getElementById('suarabelloket<?php echo $loket; ?>').currentTime=0;
         document.getElementById('suarabelloket<?php echo $loket; ?>').play();
-      }, totalwaktu); 
+      }, totalwaktu);
+
     }
   </script>
