@@ -42,21 +42,22 @@ class login extends CI_Controller
 
 			$akses = $this->mSimetris->hakAkses($username,$password,$id);
 			$userdata = array(
-				'id_petugas'  		=> $cek->id_petugas,
-				'nama_petugas'     	=> $cek->nama,
-				'login'  			=> '1',
+				'covid_id_petugas'  		=> $cek->id_petugas,
+				'covid_nama_petugas'     	=> $cek->nama,
+				'covid_login'  				=> '1',
+				'hello'     				=> $cek->nama,
 			);
 
 			switch ($akses->id_aplikasi) {
 				case 5 : 
 				$this->session->set_userdata($userdata);
-				$this->session->set_userdata('akses','Admin');
+				$this->session->set_userdata('covid_akses','Admin');
 				redirect('covid/dataRapidtest');
 				break;
 
 				case !5 :
 				$this->session->set_userdata($userdata);
-				$this->session->set_userdata('akses','Operator');
+				$this->session->set_userdata('covid_akses','Operator');
 				redirect('covid/dataRapidtest');
 				break;
 
