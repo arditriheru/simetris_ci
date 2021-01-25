@@ -37,7 +37,7 @@ $value = json_decode($data, true); ?>
 
     </div>
 
-    <div class="row">
+<!--     <div class="row">
       <div class="col-lg-6">
         <h2 class="text-center">Update Kasus Penularan COVID-19<br>Provinsi D.I.Yogyakarta<br>Per tanggal 
           <?php
@@ -80,7 +80,7 @@ $value = json_decode($data, true); ?>
   </div>
 </div>
 
-</div>
+</div> -->
 
 <div class="row">
 
@@ -173,12 +173,12 @@ $value = json_decode($data, true); ?>
     <div class="panel panel-info">
       <div class="panel-heading">
         <div class="row">
-          <a href="<?php echo base_url('hpl/login') ?>">
+          <a href="<?php echo base_url('register/login') ?>">
             <div class="col-xs-2">
-              <i class="fa fa-calendar fa-4x"></i>
+              <i class="fa fa-file-text-o fa-4x"></i>
             </div>
             <div class="col-xs-10 text-right">
-              <h2>HPL Register</h2>
+              <h2>Register</h2>
             </div>
           </a>
         </div>
