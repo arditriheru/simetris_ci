@@ -63,13 +63,13 @@
               <tbody>
                 <tr>
                   <td><center>(IgM)</center></td>
-                  <td><center><?php echo $d->hasil_igm; ?></center></td>
+                  <td><center><?php echo $d->nama_igm; ?></center></td>
                   <td><center><?php echo $d->nama_nilai_rujukan; ?></center></td>
                   <td><center><?php echo $d->metode; ?></center></td>
                 </tr>
                 <tr>
                   <td><center>(IgG)</center></td>
-                  <td><center><?php echo $d->hasil_igg; ?></center></td>
+                  <td><center><?php echo $d->nama_igg; ?></center></td>
                   <td><center><?php echo $d->nama_nilai_rujukan; ?></center></td>
                   <td><center><?php echo $d->metode; ?></center></td>
                 </tr>
@@ -114,7 +114,7 @@
                   <tr>
                     <td>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</td>
                     <td><center><strong>Petugas,</strong><br><br><br><br><br><br>
-                      <?php echo $this->session->userdata('nama_petugas'); ?></center></td>
+                      <?php echo $this->session->userdata('covid_nama_petugas'); ?></center></td>
                       <td>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</td>
                       <td><center>Yogyakarta, <?php echo formatDateIndo($d->tanggal); ?><br><strong>Penanggung jawab,</strong><br><br><br><br><br>
                       dr. Indah Ajeng Ebtasari, M.Sc.,Sp.PK.</center></td>

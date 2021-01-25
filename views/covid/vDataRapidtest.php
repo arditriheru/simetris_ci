@@ -64,7 +64,7 @@
 
 				<div class="col-lg-12">
 
-					<?php if($this->session->userdata('akses') =='Operator') { ?>
+					<?php if($this->session->userdata('covid_akses') =='Operator') { ?>
 
 						<button name="next" type="submit" 
 						class="btn btn-primary" onClick="window.location.reload()"><i class="fa fa-refresh"></i> Refresh</button><br><br>
@@ -82,7 +82,7 @@
 									<th class="text-center">IgM</i></th>
 									<th class="text-center">IgG</i></th>
 									<th class="text-center">Registrasi</i></th>
-									<?php if($this->session->userdata('akses') =='Admin') { ?>
+									<?php if($this->session->userdata('covid_akses') =='Admin') { ?>
 										<th class="text-center" colspan="3">Action</th>
 									<?php } ?>
 								</tr>
@@ -110,7 +110,7 @@
 									?>
 									<td class="text-center"><?php echo $d->tanggal.' / '.$d->jam;
 									?></td>
-									<?php if($this->session->userdata('akses') =='Admin') { ?>
+									<?php if($this->session->userdata('covid_akses') =='Admin') { ?>
 										<td class="text-center">							
 											<a href="<?php echo base_url('covid/dataRapidtest/printData/'.$d->id_rapidtest) ?>"><button type="button" class="btn btn-primary"><i class='fa fa-print'></i></button></a>
 										</td>
