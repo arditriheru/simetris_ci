@@ -7,7 +7,7 @@ class dataInventaris extends CI_Controller
 	{
 		parent::__construct();
 
-		if($this->session->userdata('login') !='1')
+		if($this->session->userdata('inventaris_login') !='1')
 		{
 			$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -25,18 +25,8 @@ class dataInventaris extends CI_Controller
 		$data['title'] 		= "Dashboard";
 		$data['subtitle'] 	= "Inventaris";
 
-		$data['data'] = $this->db->query("
-			SELECT *, inventaris_ruangan.nama_ruangan, inventaris_jenis.nama_jenis
-			FROM inventaris
-			INNER JOIN inventaris_ruangan
-			ON inventaris.kode_ruangan = inventaris_ruangan.kode_ruangan
-			INNER JOIN inventaris_jenis
-			ON inventaris.kode_jenis = inventaris_jenis.kode_jenis
-			ORDER BY inventaris.kode_registrasi DESC
-			LIMIT 50")->result();
-
-		$data['total'] = $this->db->query("
-			SELECT kode_registrasi FROM inventaris")->num_rows();
+		$data['data'] 		= $this->mSimetris->dataInventaris()->result();
+		$data['total'] 		= $this->mSimetris->getData("inventaris")->num_rows();
 
 		$this->load->view('templates/header',$data);
 		$this->load->view('inventaris/vMenu',$data);
@@ -58,86 +48,35 @@ class dataInventaris extends CI_Controller
 			$data['subtitle'] 	= "Nomor Inventaris";
 			$data['id'] 		= "nomor_inventaris=".$nomor_inventaris;
 
-			$data['data'] = $this->db->query("
-				SELECT *, inventaris_ruangan.nama_ruangan, inventaris_jenis.nama_jenis,
-				IF (inventaris.kondisi='1', 'Baik', 'Rusak') AS nama_kondisi,
-				IF (inventaris.status='1', 'Baru', 'Bekas') AS nama_status
-				FROM inventaris
-				INNER JOIN inventaris_ruangan
-				ON inventaris.kode_ruangan = inventaris_ruangan.kode_ruangan
-				INNER JOIN inventaris_jenis
-				ON inventaris.kode_jenis = inventaris_jenis.kode_jenis
-				WHERE inventaris.nomor_inventaris = '$nomor_inventaris'
-				ORDER BY inventaris.kode_registrasi ASC
-				LIMIT 50")->result();
+			$data['data'] = $this->mSimetris->cariDataNomor($nomor_inventaris)->result();
 
 		}elseif(isset($kondisi)){
 
 			$data['subtitle'] 	= "Kondisi";
 			$data['id'] 		= "kondisi=".$kondisi;
 
-			$data['data'] = $this->db->query("
-				SELECT *, inventaris_ruangan.nama_ruangan, inventaris_jenis.nama_jenis,
-				IF (inventaris.kondisi='1', 'Baik', 'Rusak') AS nama_kondisi,
-				IF (inventaris.status='1', 'Baru', 'Bekas') AS nama_status
-				FROM inventaris
-				INNER JOIN inventaris_ruangan
-				ON inventaris.kode_ruangan = inventaris_ruangan.kode_ruangan
-				INNER JOIN inventaris_jenis
-				ON inventaris.kode_jenis = inventaris_jenis.kode_jenis
-				WHERE inventaris.kondisi = '$kondisi'
-				ORDER BY inventaris.kode_registrasi ASC
-				LIMIT 50")->result();
+			$data['data'] = $this->mSimetris->cariDataKondisi($kondisi)->result();
 
 		}elseif(isset($status)){
 
 			$data['subtitle'] 	= "Status";
 			$data['id'] 		= "status=".$status;
 
-			$data['data'] = $this->db->query("
-				SELECT *, inventaris_ruangan.nama_ruangan, inventaris_jenis.nama_jenis,
-				IF (inventaris.kondisi='1', 'Baik', 'Rusak') AS nama_kondisi,
-				IF (inventaris.status='1', 'Baru', 'Bekas') AS nama_status
-				FROM inventaris
-				INNER JOIN inventaris_ruangan
-				ON inventaris.kode_ruangan = inventaris_ruangan.kode_ruangan
-				INNER JOIN inventaris_jenis
-				ON inventaris.kode_jenis = inventaris_jenis.kode_jenis
-				WHERE inventaris.status = '$status'
-				ORDER BY inventaris.kode_registrasi ASC
-				LIMIT 50")->result();
+			$data['data'] = $this->mSimetris->cariDataStatus($status)->result();
+
 		}elseif(isset($kode_ruangan)){
 			$data['id'] 		= "kode_ruangan=".$kode_ruangan;
 
 			if ($kode_ruangan=='0')
 			{
 				$data['subtitle'] 	= "Semua Ruangan";
-				
-				$data['data'] = $this->db->query("
-					SELECT *, inventaris_ruangan.nama_ruangan, inventaris_jenis.nama_jenis,
-					IF (inventaris.kondisi='1', 'Baik', 'Rusak') AS nama_kondisi,
-					IF (inventaris.status='1', 'Baru', 'Bekas') AS nama_status
-					FROM inventaris
-					INNER JOIN inventaris_ruangan
-					ON inventaris.kode_ruangan = inventaris_ruangan.kode_ruangan
-					INNER JOIN inventaris_jenis
-					ON inventaris.kode_jenis = inventaris_jenis.kode_jenis
-					ORDER BY inventaris.kode_registrasi ASC
-					LIMIT 50")->result();
+				$data['data'] 		= $this->mSimetris->cariDataRuanganAll()->result();
+
 			}else{
+
 				$data['subtitle'] 	= "Ruangan";
-				$data['data'] = $this->db->query("
-					SELECT *, inventaris_ruangan.nama_ruangan, inventaris_jenis.nama_jenis,
-					IF (inventaris.kondisi='1', 'Baik', 'Rusak') AS nama_kondisi,
-					IF (inventaris.status='1', 'Baru', 'Bekas') AS nama_status
-					FROM inventaris
-					INNER JOIN inventaris_ruangan
-					ON inventaris.kode_ruangan = inventaris_ruangan.kode_ruangan
-					INNER JOIN inventaris_jenis
-					ON inventaris.kode_jenis = inventaris_jenis.kode_jenis
-					WHERE inventaris.kode_ruangan = '$kode_ruangan'
-					ORDER BY inventaris.kode_registrasi ASC
-					LIMIT 50")->result();
+				$data['data'] 		= $this->mSimetris->cariDataRuangan($kode_ruangan)->result();
+
 			}
 		}
 
@@ -156,11 +95,11 @@ class dataInventaris extends CI_Controller
 			$data['title'] 		= "Tambah";
 		}
 
-		$data['id'] 		= $id;
-		$data['subtitle'] 	= "Inventaris";
+		$data['id'] 			= $id;
+		$data['subtitle'] 		= "Inventaris";
 
-		$data['datajenis'] = $this->db->query("SELECT * FROM inventaris_jenis ORDER BY nama_jenis ASC")->result();
-		$data['dataruangan'] = $this->db->query("SELECT * FROM inventaris_ruangan ORDER BY nama_ruangan ASC")->result();
+		$data['datajenis'] 		= $this->mSimetris->dataJenisInventaris()->result();
+		$data['dataruangan'] 	= $this->mSimetris->dataRuanganInventaris()->result();
 
 		$this->load->view('templates/header',$data);
 		$this->load->view('inventaris/vMenu',$data);
@@ -217,15 +156,7 @@ class dataInventaris extends CI_Controller
 		$data['title'] 		= "Detail";
 		$data['subtitle'] 	= "Inventaris";
 
-		$where = array('kode_registrasi' => $id);
-		$data['data'] = $this->db->query("
-			SELECT *, inventaris_jenis.nama_jenis, inventaris_ruangan.nama_ruangan,
-			IF (inventaris.kondisi='1', 'Baik', 'Rusak') AS nama_kondisi,
-			IF (inventaris.status='1', 'Baru', 'Bekas') AS nama_status
-			FROM inventaris, inventaris_jenis, inventaris_ruangan
-			WHERE inventaris.kode_jenis=inventaris_jenis.kode_jenis
-			AND inventaris.kode_ruangan=inventaris_ruangan.kode_ruangan
-			AND inventaris.kode_registrasi = '$id'")->result();
+		$data['data'] = $this->mSimetris->detailDataInventaris($id)->result();
 
 		$this->load->view('templates/header',$data);
 		$this->load->view('inventaris/vMenu',$data);
@@ -235,20 +166,12 @@ class dataInventaris extends CI_Controller
 
 	public function updateDataInventaris($id)
 	{
-		$data['title'] 		= "Update";
-		$data['subtitle'] 	= "Inventaris";
+		$data['title'] 			= "Update";
+		$data['subtitle'] 		= "Inventaris";
 
-		$data['data'] = $this->db->query("
-			SELECT *, inventaris_jenis.nama_jenis, inventaris_ruangan.nama_ruangan,
-			IF (inventaris.kondisi='1', 'Baik', 'Rusak') AS nama_kondisi,
-			IF (inventaris.status='1', 'Baru', 'Bekas') AS nama_status
-			FROM inventaris, inventaris_jenis, inventaris_ruangan
-			WHERE inventaris.kode_jenis=inventaris_jenis.kode_jenis
-			AND inventaris.kode_ruangan=inventaris_ruangan.kode_ruangan
-			AND inventaris.kode_registrasi = '$id'")->result();
-
-		$data['datajenis'] = $this->db->query("SELECT * FROM inventaris_jenis ORDER BY nama_jenis ASC")->result();
-		$data['dataruangan'] = $this->db->query("SELECT * FROM inventaris_ruangan ORDER BY nama_ruangan ASC")->result();
+		$data['data'] 			= $this->mSimetris->detailDataInventaris($id)->result();
+		$data['datajenis'] 		= $this->mSimetris->dataJenisInventaris()->result();
+		$data['dataruangan'] 	= $this->mSimetris->dataRuanganInventaris()->result();
 
 		$this->load->view('templates/header',$data);
 		$this->load->view('inventaris/vMenu',$data);
@@ -312,8 +235,7 @@ class dataInventaris extends CI_Controller
 		$data['title'] 		= "Tambah";
 		$data['subtitle'] 	= "Jenis";
 
-		$data['data'] = $this->db->query("
-			SELECT * FROM inventaris_jenis ORDER BY kode_jenis ASC")->result();
+		$data['data'] 		= $this->mSimetris->dataJenisInventaris()->result();
 		
 		$this->load->view('templates/header',$data);
 		$this->load->view('inventaris/vMenu',$data);
@@ -367,8 +289,7 @@ class dataInventaris extends CI_Controller
 		$data['title'] 		= "Tambah";
 		$data['subtitle'] 	= "Ruangan";
 
-		$data['data'] = $this->db->query("
-			SELECT * FROM inventaris_ruangan ORDER BY nama_ruangan ASC")->result();
+		$data['data'] 		= $this->mSimetris->dataRuanganInventaris()->result();
 		
 		$this->load->view('templates/header',$data);
 		$this->load->view('inventaris/vMenu',$data);
@@ -381,19 +302,32 @@ class dataInventaris extends CI_Controller
 		$kode_ruangan 	= $this->input->post('kode_ruangan');
 		$nama_ruangan 	= $this->input->post('nama_ruangan');
 
-		$data = array(
+		$where = array('kode_ruangan' => $kode_ruangan);
+		$cek = $this->mSimetris->countData("inventaris_ruangan",$where);
 
-			'kode_ruangan' => $kode_ruangan,
-			'nama_ruangan' => $nama_ruangan,
+		if($cek>0)
+		{
+			$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+				<font size="5">Kode sudah ada</font></div>');
+			redirect('inventaris/dataInventaris/tambahDataRuangan');
 
-		);
+		}else{
 
-		$this->mSimetris->insertData('inventaris_ruangan',$data);
-		$this->session->set_flashdata('alert','<div class="alert alert-success alert-dismissable">
-			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-			<font size="5">Data berhasil ditambahkan</font></div>');
-		redirect('inventaris/dataInventaris/tambahDataRuangan');
-		
+			$data = array(
+
+				'kode_ruangan' => $kode_ruangan,
+				'nama_ruangan' => $nama_ruangan,
+
+			);
+
+			$this->mSimetris->insertData('inventaris_ruangan',$data);
+			$this->session->set_flashdata('alert','<div class="alert alert-success alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+				<font size="5">Data berhasil ditambahkan</font></div>');
+			redirect('inventaris/dataInventaris/tambahDataRuangan');
+
+		}
 	}
 
 	public function deleteDataRuangan($id)
@@ -420,81 +354,35 @@ class dataInventaris extends CI_Controller
 			$data['subtitle'] 	= "Nomor Inventaris";
 			$data['id'] 		= "nomor_inventaris=".$nomor_inventaris;
 
-			$data['data'] = $this->db->query("
-				SELECT *, inventaris_ruangan.nama_ruangan, inventaris_jenis.nama_jenis,
-				IF (inventaris.kondisi='1', 'Baik', 'Rusak') AS nama_kondisi,
-				IF (inventaris.status='1', 'Baru', 'Bekas') AS nama_status
-				FROM inventaris
-				INNER JOIN inventaris_ruangan
-				ON inventaris.kode_ruangan = inventaris_ruangan.kode_ruangan
-				INNER JOIN inventaris_jenis
-				ON inventaris.kode_jenis = inventaris_jenis.kode_jenis
-				WHERE inventaris.nomor_inventaris = '$nomor_inventaris'
-				ORDER BY inventaris.kode_registrasi ASC")->result();
+			$data['data'] 		= $this->mSimetris->cariDataNomor($nomor_inventaris)->result();
 
 		}elseif(isset($kondisi)){
 
 			$data['subtitle'] 	= "Kondisi";
 			$data['id'] 		= "kondisi=".$kondisi;
 
-			$data['data'] = $this->db->query("
-				SELECT *, inventaris_ruangan.nama_ruangan, inventaris_jenis.nama_jenis,
-				IF (inventaris.kondisi='1', 'Baik', 'Rusak') AS nama_kondisi,
-				IF (inventaris.status='1', 'Baru', 'Bekas') AS nama_status
-				FROM inventaris
-				INNER JOIN inventaris_ruangan
-				ON inventaris.kode_ruangan = inventaris_ruangan.kode_ruangan
-				INNER JOIN inventaris_jenis
-				ON inventaris.kode_jenis = inventaris_jenis.kode_jenis
-				WHERE inventaris.kondisi = '$kondisi'
-				ORDER BY inventaris.kode_registrasi ASC")->result();
+			$data['data'] = $this->mSimetris->cariDataKondisi($kondisi)->result();
 
 		}elseif(isset($status)){
 
 			$data['subtitle'] 	= "Status";
 			$data['id'] 		= "status=".$status;
 
-			$data['data'] = $this->db->query("
-				SELECT *, inventaris_ruangan.nama_ruangan, inventaris_jenis.nama_jenis,
-				IF (inventaris.kondisi='1', 'Baik', 'Rusak') AS nama_kondisi,
-				IF (inventaris.status='1', 'Baru', 'Bekas') AS nama_status
-				FROM inventaris
-				INNER JOIN inventaris_ruangan
-				ON inventaris.kode_ruangan = inventaris_ruangan.kode_ruangan
-				INNER JOIN inventaris_jenis
-				ON inventaris.kode_jenis = inventaris_jenis.kode_jenis
-				WHERE inventaris.status = '$status'
-				ORDER BY inventaris.kode_registrasi ASC")->result();
+			$data['data'] = $this->mSimetris->cariDataStatus($status)->result();
+
 		}elseif(isset($kode_ruangan)){
 			$data['id'] 		= "kode_ruangan=".$kode_ruangan;
 
 			if ($kode_ruangan=='0')
 			{
 				$data['subtitle'] 	= "Semua Ruangan";
-				
-				$data['data'] = $this->db->query("
-					SELECT *, inventaris_ruangan.nama_ruangan, inventaris_jenis.nama_jenis,
-					IF (inventaris.kondisi='1', 'Baik', 'Rusak') AS nama_kondisi,
-					IF (inventaris.status='1', 'Baru', 'Bekas') AS nama_status
-					FROM inventaris
-					INNER JOIN inventaris_ruangan
-					ON inventaris.kode_ruangan = inventaris_ruangan.kode_ruangan
-					INNER JOIN inventaris_jenis
-					ON inventaris.kode_jenis = inventaris_jenis.kode_jenis
-					ORDER BY inventaris.kode_registrasi ASC")->result();
+				$data['data'] 		= $this->mSimetris->cariDataRuanganAll()->result();
+
 			}else{
+
 				$data['subtitle'] 	= "Ruangan";
-				$data['data'] = $this->db->query("
-					SELECT *, inventaris_ruangan.nama_ruangan, inventaris_jenis.nama_jenis,
-					IF (inventaris.kondisi='1', 'Baik', 'Rusak') AS nama_kondisi,
-					IF (inventaris.status='1', 'Baru', 'Bekas') AS nama_status
-					FROM inventaris
-					INNER JOIN inventaris_ruangan
-					ON inventaris.kode_ruangan = inventaris_ruangan.kode_ruangan
-					INNER JOIN inventaris_jenis
-					ON inventaris.kode_jenis = inventaris_jenis.kode_jenis
-					WHERE inventaris.kode_ruangan = '$kode_ruangan'
-					ORDER BY inventaris.kode_registrasi ASC")->result();
+				$data['data'] 		= $this->mSimetris->cariDataRuangan($kode_ruangan)->result();
+
 			}
 		}
 

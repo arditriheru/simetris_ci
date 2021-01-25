@@ -42,12 +42,14 @@ class login extends CI_Controller
 
 			$akses = $this->mSimetris->hakAkses($username,$password,$id);
 			$userdata = array(
-				'id_petugas'  		=> $cek->id_petugas,
-				'nama_petugas'     	=> $cek->nama,
-				'login'  			=> '1',
+				'inventaris_id_petugas'  		=> $cek->id_petugas,
+				'inventaris_nama_petugas'     	=> $cek->nama,
+				'inventaris_login'  			=> '1',
+				'hello'     					=> $cek->nama,
 			);
+
 			$this->session->set_userdata($userdata);
-			$this->session->set_userdata('akses','Admin');
+			$this->session->set_userdata('inventaris_akses','Admin');
 			redirect('inventaris/dataInventaris');
 		}
 
