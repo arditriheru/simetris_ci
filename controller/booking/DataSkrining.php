@@ -11,7 +11,7 @@ class dataSkrining extends CI_Controller
 		{
 			$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-				<font size="5">Anda belum login</font>
+				<font size="4">Anda belum login</font>
 				</div>');
 			redirect('booking/login');
 		}
@@ -54,7 +54,7 @@ class dataSkrining extends CI_Controller
 
 			$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-				<font size="5"><b>P.D.P</b> Curiga Pasien Dalam Pengawasan!</font></div>');
+				<font size="4"><b>P.D.P</b> Curiga Pasien Dalam Pengawasan!</font></div>');
 			redirect('booking/dataSkrining');
 
 		}elseif($A1==1 && $B1==1 && $C1==1 ||
@@ -64,28 +64,28 @@ class dataSkrining extends CI_Controller
 
 			$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-				<font size="5"><b>O.D.P</b> Curiga Orang Dalam Pengawasan!</font></div>');
+				<font size="4"><b>O.D.P</b> Curiga Orang Dalam Pengawasan!</font></div>');
 			redirect('booking/dataSkrining');
 
 		}elseif($C1==1 && $C2==1 && $C3==1){
 
 			$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-				<font size="5"><b>O.T.G</b> Curiga Orang Tanpa Gejala!</font></div>');
+				<font size="4"><b>O.T.G</b> Curiga Orang Tanpa Gejala!</font></div>');
 			redirect('booking/dataSkrining');
 
 		}elseif($C1==1 && $C2==1){
 
 			$this->session->set_flashdata('alert','<div class="alert alert-warning alert-dismissable">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-				<font size="5"><b>Aman</b> Wajib Skrining Lanjutan di UGD!</font></div>');
+				<font size="4"><b>Aman</b> Wajib Skrining Lanjutan di UGD!</font></div>');
 			redirect('booking/dataSkrining');
 
 		}else{
 
 			$this->session->set_flashdata('alert','<div class="alert alert-success alert-dismissable">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-				<font size="5"><b>Aman</b> Pasien Aman!</font></div>');
+				<font size="4"><b>Aman</b> Pasien Aman!</font></div>');
 			redirect('booking/dataSkrining');
 
 		}

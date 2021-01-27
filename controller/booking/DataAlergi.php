@@ -11,7 +11,7 @@ class dataAlergi extends CI_Controller
 		{
 			$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-				<font size="5">Anda belum login</font>
+				<font size="4">Anda belum login</font>
 				</div>');
 			redirect('booking/login');
 		}

@@ -11,7 +11,7 @@ class dataJadwal extends CI_Controller
 		{
 			$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-				<font size="5">Anda belum login</font>
+				<font size="4">Anda belum login</font>
 				</div>');
 			redirect('booking/login');
 		}
@@ -25,41 +25,12 @@ class dataJadwal extends CI_Controller
 		$data['title'] 		= "Jadwal";
 		$data['subtitle'] 	= "Dokter";
 
-		$data['datadokter'] = $this->db->query("SELECT id_dokter, nama_dokter FROM dokter WHERE status='1'")->result();
+		$where = array(
+			'dokter.status' => 1
+		);
 
-		$data['datajadwal'] 	= $this->db->query("
-			SELECT *, dokter.nama_dokter, sesi.nama_sesi,
-			IF (dokter_jadwal.ims='1', ' + Imunisasi','') AS ims,
-			CASE
-			WHEN dokter.id_unit='1' THEN 'Anak'
-			WHEN dokter.id_unit='2' THEN 'Obsgyn'
-			WHEN dokter.id_unit='3' THEN 'Bedah'
-			END AS nama_unit,
-			CASE
-			WHEN dokter_jadwal.hari=1 THEN 'Senin'
-			WHEN dokter_jadwal.hari=2 THEN 'Selasa'
-			WHEN dokter_jadwal.hari=3 THEN 'Rabu'
-			WHEN dokter_jadwal.hari=4 THEN 'Kamis'
-			WHEN dokter_jadwal.hari=5 THEN 'Jumat'
-			WHEN dokter_jadwal.hari=6 THEN 'Sabtu'
-			WHEN dokter_jadwal.hari=0 THEN 'Minggu'
-			END AS nama_hari
-			FROM dokter_jadwal
-			JOIN dokter
-			ON dokter_jadwal.id_dokter=dokter.id_dokter
-			join sesi
-			ON dokter_jadwal.id_sesi=sesi.id_sesi
-			ORDER BY dokter_jadwal.hari ASC")->result();
-
-
-		$data['datajadwallibur'] 	= $this->db->query("
-			SELECT *, dokter.nama_dokter, sesi.nama_sesi
-			FROM dokter_jadwal_libur
-			JOIN dokter
-			ON dokter_jadwal_libur.id_dokter=dokter.id_dokter
-			JOIN sesi
-			ON dokter_jadwal_libur.id_sesi=sesi.id_sesi
-			ORDER BY dokter_jadwal_libur.tanggal ASC")->result();
+		$data['datadokter'] 		= $this->mSimetris->dataDokter("dokter",$where,"nama_dokter ASC")->result();
+		$data['datajadwallibur'] 	= $this->mSimetris->dataJadwalLibur()->result();
 
 		$this->load->view('templates/header',$data);
 		$this->load->view('booking/vMenu',$data);
@@ -74,42 +45,16 @@ class dataJadwal extends CI_Controller
 
 		$data['id'] = $id;
 
-		$data['datadokter'] = $this->db->query("SELECT id_dokter, nama_dokter FROM dokter WHERE status='1'")->result();
+		$where1 = array(
+			'status' => 1
+		);
+		$where2 = array(
+			'dokter.id_dokter' => $id
+		);
 
-		$data['datajadwal'] 	= $this->db->query("
-			SELECT *, dokter.nama_dokter, sesi.nama_sesi,
-			IF (dokter_jadwal.ims='1', ' + Imunisasi','') AS ims,
-			CASE
-			WHEN dokter.id_unit='1' THEN 'Anak'
-			WHEN dokter.id_unit='2' THEN 'Obsgyn'
-			WHEN dokter.id_unit='3' THEN 'Bedah'
-			END AS nama_unit,
-			CASE
-			WHEN dokter_jadwal.hari=1 THEN 'Senin'
-			WHEN dokter_jadwal.hari=2 THEN 'Selasa'
-			WHEN dokter_jadwal.hari=3 THEN 'Rabu'
-			WHEN dokter_jadwal.hari=4 THEN 'Kamis'
-			WHEN dokter_jadwal.hari=5 THEN 'Jumat'
-			WHEN dokter_jadwal.hari=6 THEN 'Sabtu'
-			WHEN dokter_jadwal.hari=0 THEN 'Minggu'
-			END AS nama_hari
-			FROM dokter_jadwal
-			JOIN dokter
-			ON dokter_jadwal.id_dokter=dokter.id_dokter
-			join sesi
-			ON dokter_jadwal.id_sesi=sesi.id_sesi
-			WHERE dokter_jadwal.id_dokter='$id'
-			ORDER BY dokter_jadwal.hari ASC")->result();
-
-
-		$data['datajadwallibur'] 	= $this->db->query("
-			SELECT *, dokter.nama_dokter, sesi.nama_sesi
-			FROM dokter_jadwal_libur
-			JOIN dokter
-			ON dokter_jadwal_libur.id_dokter=dokter.id_dokter
-			JOIN sesi
-			ON dokter_jadwal_libur.id_sesi=sesi.id_sesi
-			ORDER BY dokter_jadwal_libur.tanggal ASC")->result();
+		$data['datadokter']			= $this->mSimetris->dataDokter("dokter",$where1,"nama_dokter ASC")->result();
+		$data['datajadwal'] 		= $this->mSimetris->dataJadwal($where2)->result();
+		$data['datajadwallibur']	= $this->mSimetris->dataJadwalLibur()->result();
 
 		$this->load->view('templates/header',$data);
 		$this->load->view('booking/vMenu',$data);
@@ -129,8 +74,9 @@ class dataJadwal extends CI_Controller
 			$data['subtitle'] 	= "Jadwal";
 		}
 
-		$data['datadokter'] = $this->db->query("SELECT id_dokter, nama_dokter FROM dokter WHERE status='1'")->result();
-		$data['datasesi'] = $this->db->query("SELECT id_sesi, nama_sesi FROM sesi")->result();
+		$where 				= array('status' => 1);
+		$data['datadokter'] = $this->mSimetris->dataDokter("dokter",$where,"nama_dokter ASC")->result();
+		$data['datasesi'] 	= $this->mSimetris->getData("sesi")->result();
 
 		$this->load->view('templates/header',$data);
 		$this->load->view('booking/vMenu',$data);
@@ -155,7 +101,7 @@ class dataJadwal extends CI_Controller
 		$this->mSimetris->insertData('dokter_jadwal_libur',$data);
 		$this->session->set_flashdata('alert','<div class="alert alert-success alert-dismissable">
 			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-			<font size="5">Berhasil menambahkan</font></div>');
+			<font size="4">Berhasil menambahkan</font></div>');
 		redirect('booking/dataJadwal');
 
 	}
@@ -183,7 +129,7 @@ class dataJadwal extends CI_Controller
 		$this->mSimetris->insertData('dokter_jadwal',$data);
 		$this->session->set_flashdata('alert','<div class="alert alert-success alert-dismissable">
 			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-			<font size="5">Berhasil menambahkan</font></div>');
+			<font size="4">Berhasil menambahkan</font></div>');
 		redirect('booking/dataJadwal');
 
 	}
@@ -194,7 +140,7 @@ class dataJadwal extends CI_Controller
 		$this->mSimetris->deleteData('dokter_jadwal_libur',$where);
 		$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
 			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-			<font size="5">Data berhasil dihapus</font>
+			<font size="4">Data berhasil dihapus</font>
 			</div>');
 		redirect('booking/dataJadwal');
 
@@ -206,7 +152,7 @@ class dataJadwal extends CI_Controller
 		$this->mSimetris->deleteData('dokter_jadwal',$where);
 		$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
 			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-			<font size="5">Data berhasil dihapus</font>
+			<font size="4">Data berhasil dihapus</font>
 			</div>');
 		redirect('booking/dataJadwal');
 
@@ -217,25 +163,11 @@ class dataJadwal extends CI_Controller
 		$data['title'] 		= "Update";
 		$data['subtitle'] 	= "Jadwal";
 
-		$data['datadokter'] = $this->db->query("SELECT id_dokter, nama_dokter FROM dokter WHERE status='1'")->result();
-		$data['datasesi'] = $this->db->query("SELECT id_sesi, nama_sesi FROM sesi")->result();
-
-		$data['datajadwal'] = $this->db->query("
-			SELECT *, dokter_jadwal.kuota, dokter.nama_dokter, sesi.nama_sesi,
-			CASE
-			WHEN dokter_jadwal.hari='1' THEN 'Senin'
-			WHEN dokter_jadwal.hari='2' THEN 'Selasa'
-			WHEN dokter_jadwal.hari='3' THEN 'Rabu'
-			WHEN dokter_jadwal.hari='4' THEN 'Kamis'
-			WHEN dokter_jadwal.hari='5' THEN 'Jumat'
-			WHEN dokter_jadwal.hari='6' THEN 'Sabtu'
-			WHEN dokter_jadwal.hari='0' THEN 'Minggu'
-			END AS nama_hari,
-			IF (dokter_jadwal.ims='1', 'Ya','Tidak') AS nama_ims
-			FROM dokter_jadwal, dokter, sesi
-			WHERE dokter_jadwal.id_dokter=dokter.id_dokter
-			AND dokter_jadwal.id_sesi=sesi.id_sesi
-			AND dokter_jadwal.id_jadwal = '$id'")->result();
+		$where = array(
+			'id_jadwal' => $id
+		);
+		$data['datasesi'] 	= $this->mSimetris->getData("sesi")->result();
+		$data['datajadwal'] = $this->mSimetris->dataJadwal($where)->result();
 
 		$this->load->view('templates/header',$data);
 		$this->load->view('booking/vMenu',$data);
@@ -271,13 +203,13 @@ class dataJadwal extends CI_Controller
 		$this->mSimetris->updateData('dokter_jadwal',$data,$where);
 		$this->session->set_flashdata('alert','<div class="alert alert-success alert-dismissable">
 			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-			<font size="5">Data berhasil diupdate!</font>
+			<font size="4">Data berhasil diupdate!</font>
 			</div>');
 		redirect('booking/dataJadwal/');
 
 	}
 
-	
+
 
 }
 

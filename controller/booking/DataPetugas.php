@@ -11,7 +11,7 @@ class dataPetugas extends CI_Controller
 		{
 			$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-				<font size="5">Anda belum login</font>
+				<font size="4">Anda belum login</font>
 				</div>');
 			redirect('booking/login');
 		}
@@ -81,7 +81,7 @@ class dataPetugas extends CI_Controller
 		$this->mSimetris->insertData('dokter',$data);
 		$this->session->set_flashdata('alert','<div class="alert alert-success alert-dismissable">
 			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-			<font size="5">Berhasil menambahkan</font></div>');
+			<font size="4">Berhasil menambahkan</font></div>');
 		redirect('booking/dataPetugas');
 	}
 
@@ -102,7 +102,7 @@ class dataPetugas extends CI_Controller
 		$this->mSimetris->insertData('mr_petugas',$data);
 		$this->session->set_flashdata('alert','<div class="alert alert-success alert-dismissable">
 			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-			<font size="5">Berhasil menambahkan</font></div>');
+			<font size="4">Berhasil menambahkan</font></div>');
 		redirect('booking/dataPetugas');
 	}
 
@@ -112,7 +112,7 @@ class dataPetugas extends CI_Controller
 		$this->mSimetris->deleteData('dokter',$where);
 		$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
 			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-			<font size="5">Data berhasil dihapus</font>
+			<font size="4">Data berhasil dihapus</font>
 			</div>');
 		redirect('booking/dataPetugas');
 
@@ -124,7 +124,7 @@ class dataPetugas extends CI_Controller
 		$this->mSimetris->deleteData('mr_petugas',$where);
 		$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
 			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-			<font size="5">Data berhasil dihapus</font>
+			<font size="4">Data berhasil dihapus</font>
 			</div>');
 		redirect('booking/dataPetugas');
 
@@ -193,7 +193,7 @@ class dataPetugas extends CI_Controller
 		$this->mSimetris->updateData('dokter',$data,$where);
 		$this->session->set_flashdata('alert','<div class="alert alert-success alert-dismissable">
 			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-			<font size="5">Data berhasil diupdate</font>
+			<font size="4">Data berhasil diupdate</font>
 			</div>');
 		redirect('booking/dataPetugas/');
 
@@ -221,7 +221,7 @@ class dataPetugas extends CI_Controller
 		$this->mSimetris->updateData('mr_petugas',$data,$where);
 		$this->session->set_flashdata('alert','<div class="alert alert-success alert-dismissable">
 			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-			<font size="5">Data berhasil diupdate</font>
+			<font size="4">Data berhasil diupdate</font>
 			</div>');
 		redirect('booking/dataPetugas/');
 
