@@ -42,21 +42,22 @@ class login extends CI_Controller
 
 			$akses = $this->mSimetris->hakAkses($username,$password,$id);
 			$userdata = array(
-				'id_petugas'  		=> $cek->id_petugas,
-				'nama_petugas'     	=> $cek->nama,
-				'login'  			=> '1',
+				'hpl_id_petugas'  		=> $cek->id_petugas,
+				'hpl_nama_petugas'     	=> $cek->nama,
+				'hpl_login'  			=> '1',
+				'hello'     			=> $cek->nama,
 			);
 
 			switch ($akses->id_aplikasi) {
 				case 1 : 
 				$this->session->set_userdata($userdata);
-				$this->session->set_userdata('akses','Admin');
+				$this->session->set_userdata('hpl_akses','Admin');
 				redirect('hpl/dataHpl');
 				break;
 
 				case !1 :
 				$this->session->set_userdata($userdata);
-				$this->session->set_userdata('akses','Operator');
+				$this->session->set_userdata('hpl_akses','Operator');
 				redirect('hpl/dataHpl');
 				break;
 

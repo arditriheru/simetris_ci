@@ -7,7 +7,7 @@ class dataHpl extends CI_Controller
 	{
 		parent::__construct();
 
-		if($this->session->userdata('login') !='1')
+		if($this->session->userdata('hpl_login') !='1')
 		{
 			$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -207,7 +207,7 @@ class dataHpl extends CI_Controller
 
 		$data['id'] = $id;
 
-		$data['datadokter'] = $this->db->query("SELECT id_dokter, nama_dokter FROM dokter WHERE status=1")->result();
+		$data['datadokter'] = $this->db->query("SELECT id_dokter, nama_dokter FROM dokter WHERE id_unit=2 AND status=1")->result();
 		$data['dataunit'] 	= $this->db->query("SELECT id_unit, nama_unit FROM mr_unit")->result();
 
 		$data['record']=  $this->mSimetris->getData('mr_pasien');
@@ -264,7 +264,7 @@ class dataHpl extends CI_Controller
 	{
 		$id_catatan_medik 	= $this->input->post('id_catatan_medik');
 		$id_dokter 			= $this->input->post('id_dokter');
-		$id_petugas			= $this->session->userdata('id_petugas');
+		$id_petugas			= $this->session->userdata('hpl_id_petugas');
 		$tgl_hpl 			= $this->input->post('tgl_hpl');
 		$tanggal 			= getDatenow();
 		$jam 				= getTimenow();
