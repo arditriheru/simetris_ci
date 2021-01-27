@@ -46,9 +46,9 @@ class dataRapidtest extends CI_Controller
 		$data['title'] 		= "Tambah";
 		$data['subtitle'] 	= "Rapidtest";
 
-		$data['datadokter'] = $this->mSimetris->dataDokterAll()->result();
-		$data['dataunit'] 	= $this->mSimetris->dataUnit()->result();
-		$data['record']		=  $this->mSimetris->getData('mr_pasien');
+		$data['datadokter'] = $this->mSimetris->getData("mr_dokter")->result();
+		$data['dataunit'] 	= $this->mSimetris->getData("mr_unit")->result();
+		$data['record']		= $this->mSimetris->getData('mr_pasien');
 
 		$this->load->view('templates/header',$data);
 		$this->load->view('covid/vMenu',$data);
@@ -119,8 +119,8 @@ class dataRapidtest extends CI_Controller
 		$data['title'] 		= "Update";
 		$data['subtitle'] 	= "Rapidtest";
 
-		$data['datadokter'] = $this->mSimetris->dataDokterAll()->result();
-		$data['dataunit'] 	= $this->mSimetris->dataUnit()->result();
+		$data['datadokter'] = $this->mSimetris->getData("mr_dokter")->result();
+		$data['dataunit'] 	= $this->mSimetris->getData("mr_unit")->result();
 		$data['rapidtest'] 	= $this->mSimetris->detailDataRapidtest($id)->result();
 
 		$this->load->view('templates/header',$data);
