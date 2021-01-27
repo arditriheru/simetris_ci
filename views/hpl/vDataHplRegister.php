@@ -33,7 +33,7 @@
                   <td class="text-center"><?php echo $d->nama; ?></td>
                   <td class="text-center"><?php echo $d->telp; ?></td>
                   <td class="text-center"><?php echo $d->nama_dokter; ?></td>
-                  <td class="text-center"><?php echo date('d F Y', strtotime($d->tgl_hpl)); ?></td>
+                  <td class="text-center"><?php echo formatDateIndo($d->tgl_hpl); ?></td>
                   <!-- <td class="text-center">              
                     <a href="<?php echo base_url('hpl/dataHpl/detailDataHpl/'.$d->id_hpl_register) ?>"><button type="button" class="btn btn-warning"><i class='fa fa-folder-open'></i></button></a>
                   </td> -->

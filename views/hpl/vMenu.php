@@ -33,7 +33,7 @@
           </a>
         </li>
         <li class="dropdown user-dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user-circle"></i> <?php echo $this->session->userdata('akses').' / '.$this->session->userdata('nama_petugas'); ?> <b class="caret"></b></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user-circle"></i> <?php echo $this->session->userdata('hpl_akses').' / '.$this->session->userdata('hpl_nama_petugas'); ?> <b class="caret"></b></a>
           <ul class="dropdown-menu">
             <li><a href="<?php echo base_url('hpl/login/logout') ?>"><i class="fa fa-power-off"></i> Log Out</a></li>
           </ul>
