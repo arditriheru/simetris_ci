@@ -11,17 +11,24 @@
             <li><a href="<?php echo base_url('booking/dataBooking') ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
             <li class="active"><i class="fa fa-plus"></i> <?php echo $title ?></li>
           </ol>
-          
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12">
           <?php $this->load->view('templates/welcome') ?>
           <?php echo $this->session->flashdata('alert') ?>
+        </div>
+      </div>
 
-          <div class="col-lg-6">
+      <div class="row">
+        <div class="col-lg-6">
 
-            <?php if($id==1){ ?>
+          <?php if($id==1){ ?>
 
             <form method="post" action="<?php echo base_url('booking/dataJadwal/tambahDataJadwalLiburAksi') ?>" role="form">
               <div class="form-group">
-                <label>Dokter</label>
+                <label>Nama Dokter</label>
                 <select class="form-control" type="text" name="id_dokter" required="">
                   <option value="">Pilih</option>
                   <?php foreach($datadokter as $d): ?>
@@ -50,7 +57,7 @@
 
             <form method="post" action="<?php echo base_url('booking/dataJadwal/tambahDataJadwalAksi') ?>" role="form">
               <div class="form-group">
-                <label>Dokter</label>
+                <label>Nama Dokter</label>
                 <select class="form-control" type="text" name="id_dokter" required="">
                   <option value="">Pilih</option>
                   <?php foreach($datadokter as $d): ?>
@@ -99,15 +106,11 @@
               </div>
               <button type="submit" class="btn btn-success">Submit</button>
             </form>
-
           <?php } ?>
-
-
         </div>
 
-      </div>
-    </div><!-- /.row -->
+      </div><!-- /.row -->
 
-  </div><!-- /#page-wrapper -->
+    </div><!-- /#page-wrapper -->
 
-  <!--</div> /#wrapper -->
+    <!--</div> /#wrapper -->

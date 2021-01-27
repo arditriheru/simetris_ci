@@ -36,8 +36,7 @@
       src="<?php echo base_url() ?>assets/rekaman/<?php echo substr($tcounter,$i,1); ?>.mp3" >
     </audio>
 
-  <?php }
-  ?> 
+  <?php } ?>
 
   <div id="wrapper">
 
@@ -57,14 +56,14 @@
           <?php echo $this->session->flashdata('alert') ?>
 
           <div class="col-lg-4"><br>
-            <button name="next" type="submit" 
+            <button name="next" type="submit"
             class="btn btn-primary" onClick="window.location.reload()"><i class="fa fa-refresh"></i> Refresh</button>
             <a href="<?php echo base_url('booking/DataAntrian/selesaiAntrian') ?>">
-              <button name="next" type="submit" 
+              <button name="next" type="submit"
               class="btn btn-danger"><i class="fa fa-close"></i> Selesai</button>
             </a>
             <a href="<?php echo base_url('booking/DataAntrian/excelData?dokter='.$this->session->userdata('id_dokter').'&sesi='.$this->session->userdata('id_sesi')) ?>">
-              <button name="next" type="submit" 
+              <button name="next" type="submit"
               class="btn btn-success"><i class="fa fa-download"></i> Excel</button>
             </a>
           </div>
@@ -116,9 +115,9 @@
 
                   <?php }elseif($d->akhir=="00:00:00"){ ?>
 
-                   <a href="<?php echo base_url('booking/dataAntrian/dilayaniAkhir/'.$d->id_booking) ?>"><button type='button' class='btn btn-warning'><i class='fa fa-hourglass-end'></i></button></a>
+                  <a href="<?php echo base_url('booking/dataAntrian/dilayaniAkhir/'.$d->id_booking) ?>"><button type='button' class='btn btn-warning'><i class='fa fa-hourglass-end'></i></button></a>
 
-                 <?php }else{
+                <?php }else{
 
                     $mulai = strtotime($d->mulai); //waktu mulai
                     $akhir = strtotime($d->akhir); //waktu akhir
@@ -133,14 +132,13 @@
                 <td><center><?php echo $d->nama ?></center></td>
                 <td><center><?php echo $d->alamat ?></center></td>
                 <td><center><?php echo $d->nama_sesi ?></center></td>
-                <td class="text-center">              
+                <td class="text-center">
                   <a href="<?php echo base_url('booking/dataBooking/detailDataPoli/'.$d->id_booking) ?>"><button type="button" class="btn btn-warning"><i class='fa fa-folder-open'></i></button></a>
                 </td>
               </tr>
             <?php endforeach; ?>
           </tbody>
         </table>
-      </div>
     </div><!-- /.row -->
 
   </div><!-- /#page-wrapper -->
@@ -155,10 +153,10 @@
       document.getElementById('suarabel').currentTime=0;
       document.getElementById('suarabel').play();
 
-      //SET DELAY UNTUK MEMAINKAN REKAMAN NOMOR URUT    
+      //SET DELAY UNTUK MEMAINKAN REKAMAN NOMOR URUT
       totalwaktu=document.getElementById('suarabel').duration*1030;
 
-      //MAINKAN SUARA NOMOR URUT    
+      //MAINKAN SUARA NOMOR URUT
       setTimeout(function() {
         document.getElementById('suarabelnomorurut').pause();
         document.getElementById('suarabelnomorurut').currentTime=0;
@@ -166,7 +164,7 @@
       }, totalwaktu);
       totalwaktu=totalwaktu+1500;
 
-      //MAINKAN SUARA ABJAD   
+      //MAINKAN SUARA ABJAD
       setTimeout(function() {
         document.getElementById('suarabelabjad').pause();
         document.getElementById('suarabelabjad').currentTime=0;

@@ -6,16 +6,21 @@
 
       <div class="row">
         <div class="col-lg-12">
-
           <h1><?php echo $title ?> <small><?php echo getDateIndo() ?></small></h1>
-          
           <ol class="breadcrumb">
             <li class="active"><i class="fa fa-dashboard"></i> Dashboard</li>
           </ol>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12">
           <?php $this->load->view('templates/welcome') ?>
           <?php echo $this->session->flashdata('alert') ?>
         </div>
+      </div>
 
+      <div class="row">
         <div class="col-lg-12">
           <ul class="nav nav-pills" style="margin-bottom: 15px;">
             <li class="active"><a href="#1" data-toggle="tab">Poliklinik</a></li>
@@ -30,12 +35,12 @@
                 <table class="table table-bordered table-hover table-striped tablesorter">
                   <thead>
                     <tr>
-                      <th class="text-center">No.RM</i></th>
-                      <th class="text-center">Nama Pasien</i></th>
-                      <th class="text-center">Dokter</i></th>
-                      <th class="text-center">Jadwal</i></th>
-                      <th class="text-center">Sesi</i></th>
-                      <th class="text-center">Keterangan</i></th>
+                      <th class="text-center">No.RM</th>
+                      <th class="text-center">Nama Pasien</th>
+                      <th class="text-center">Dokter</th>
+                      <th class="text-center">Jadwal</th>
+                      <th class="text-center">Sesi</th>
+                      <th class="text-center">Keterangan</th>
                       <th class="text-center" colspan="3">Action</th>
                     </tr>
                   </thead>
@@ -63,12 +68,12 @@
                 <table class="table table-bordered table-hover table-striped tablesorter">
                   <thead>
                     <tr>
-                      <th class="text-center">No.RM</i></th>
-                      <th class="text-center">Nama Pasien</i></th>
-                      <th class="text-center">Dokter</i></th>
-                      <th class="text-center">Jadwal</i></th>
-                      <th class="text-center">Sesi</i></th>
-                      <th class="text-center">Keterangan</i></th>
+                      <th class="text-center">No.RM</th>
+                      <th class="text-center">Nama Pasien</th>
+                      <th class="text-center">Dokter</th>
+                      <th class="text-center">Jadwal</th>
+                      <th class="text-center">Sesi</th>
+                      <th class="text-center">Keterangan</th>
                       <th class="text-center" colspan="3">Action</th>
                     </tr>
                   </thead>
@@ -96,12 +101,12 @@
                 <table class="table table-bordered table-hover table-striped tablesorter">
                   <thead>
                     <tr>
-                      <th class="text-center">No.RM</i></th>
-                      <th class="text-center">Nama Pasien</i></th>
-                      <th class="text-center">Dokter</i></th>
-                      <th class="text-center">Jadwal</i></th>
-                      <th class="text-center">Sesi</i></th>
-                      <th class="text-center">Keterangan</i></th>
+                      <th class="text-center">No.RM</th>
+                      <th class="text-center">Nama Pasien</th>
+                      <th class="text-center">Dokter</th>
+                      <th class="text-center">Jadwal</th>
+                      <th class="text-center">Sesi</th>
+                      <th class="text-center">Keterangan</th>
                       <th class="text-center" colspan="3">Action</th>
                     </tr>
                   </thead>
@@ -129,12 +134,12 @@
                 <table class="table table-bordered table-hover table-striped tablesorter">
                   <thead>
                     <tr>
-                      <th class="text-center">No.RM</i></th>
-                      <th class="text-center">Nama Pasien</i></th>
-                      <th class="text-center">Dokter</i></th>
-                      <th class="text-center">Jadwal</i></th>
-                      <th class="text-center">Sesi</i></th>
-                      <th class="text-center">Keterangan</i></th>
+                      <th class="text-center">No.RM</th>
+                      <th class="text-center">Nama Pasien</th>
+                      <th class="text-center">Dokter</th>
+                      <th class="text-center">Jadwal</th>
+                      <th class="text-center">Sesi</th>
+                      <th class="text-center">Keterangan</th>
                       <th class="text-center" colspan="3">Action</th>
                     </tr>
                   </thead>

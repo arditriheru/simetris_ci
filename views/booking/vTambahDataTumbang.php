@@ -6,19 +6,24 @@
 
       <div class="row">
         <div class="col-lg-12">
+          <h1><?php echo $title ?> <small> <?php echo $subtitle ?></small></h1>
+          <ol class="breadcrumb">
+            <li><a href="<?php echo base_url('booking/dataBooking') ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li class="active"><i class="fa fa-calendar"></i> <?php echo $subtitle ?></li>
+          </ol>
+        </div>
+      </div>
 
-            <h1><?php echo $title ?> <small> <?php echo $subtitle ?></small></h1>
+      <div class="row">
+        <div class="col-lg-12">
+          <?php $this->load->view('templates/welcome') ?>
+          <?php echo $this->session->flashdata('alert') ?>
+        </div>
+      </div>
 
-        <ol class="breadcrumb">
-          <li><a href="<?php echo base_url('booking/dataBooking') ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-          <li class="active"><i class="fa fa-calendar"></i> <?php echo $subtitle ?></li>
-        </ol>
+      <?php if(isset($id) && $id==1 && !isset($tumbang)) { ?>
 
-        <?php $this->load->view('templates/welcome') ?>
-        <?php echo $this->session->flashdata('alert') ?>
-
-        <?php if(isset($id) && $id==1 && !isset($tumbang)) { ?>
-
+        <div class="row">
           <div class="col-lg-6">
             <form method="post" action="<?php echo base_url('booking/dataBooking/cariDataTumbangAksi') ?>" role="form">
               <div class="form-group">
@@ -46,45 +51,54 @@
               <button type="submit" class="btn btn-success">Cari</button>
             </form>
           </div>
+        </div>
 
-        <?php }elseif(isset($tumbang)) { ?>
+      <?php }elseif(isset($tumbang)) { ?>
 
-          <div class="table-responsive">
-            <table class="table table-bordered table-hover table-striped tablesorter">
-              <thead>
-                <tr>
-                  <th class="text-center">#</i></th>
-                  <th class="text-center">No.RM</i></th>
-                  <th class="text-center">Nama</i></th>
-                  <th class="text-center">Alamat</i></th>
-                  <th class="text-center">Kontak</th>
-                  <th class="text-center">Dokter</i></th>
-                  <th class="text-center">Sesi</i></th>
-                  <th class="text-center">Status</i></th>
-                  <th class="text-center">Keterangan</i></th>
-                  <th class="text-center">Action</i></th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php $no = 1; foreach ($tumbang as $d) : ?>
-                <tr>
-                  <td class="text-center"><?php echo $no++; ?></td>
-                  <td class="text-center"><?php echo $d->id_catatan_medik;?></td>
-                  <td class="text-center"><?php echo $d->nama;?></td>
-                  <td class="text-center"><?php echo $d->alamat;?></td>
-                  <td class="text-center"><?php echo $d->kontak;?></td>
-                  <td class="text-center"><?php echo $d->nama_petugas;?></td>
-                  <td class="text-center"><?php echo $d->nama_sesi;?></td>
-                  <td class="text-center"><?php echo $d->status;?></td>
-                  <td class="text-center"><?php echo $d->keterangan;?></td>
-                  <td class="text-center">              
-                    <a href="<?php echo base_url('booking/dataBooking/detailDataTumbang/'.$d->id_tumbang) ?>"><button type="button" class="btn btn-warning"><i class='fa fa-folder-open'></i></button></a>
-                  </td>
-                </tr>
-              <?php endforeach; ?>
-            </tbody>
-          </table>
-        <?php }elseif(isset($id) && $id==2 && !isset($tumbang)) { ?>
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="table-responsive">
+              <table class="table table-bordered table-hover table-striped tablesorter">
+                <thead>
+                  <tr>
+                    <th class="text-center">#</th>
+                    <th class="text-center">No.RM</th>
+                    <th class="text-center">Nama</th>
+                    <th class="text-center">Alamat</th>
+                    <th class="text-center">Kontak</th>
+                    <th class="text-center">Dokter</th>
+                    <th class="text-center">Sesi</th>
+                    <th class="text-center">Status</th>
+                    <th class="text-center">Keterangan</th>
+                    <th class="text-center">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php $no = 1; foreach ($tumbang as $d) : ?>
+                  <tr>
+                    <td class="text-center"><?php echo $no++; ?></td>
+                    <td class="text-center"><?php echo $d->id_catatan_medik;?></td>
+                    <td class="text-center"><?php echo $d->nama;?></td>
+                    <td class="text-center"><?php echo $d->alamat;?></td>
+                    <td class="text-center"><?php echo $d->kontak;?></td>
+                    <td class="text-center"><?php echo $d->nama_petugas;?></td>
+                    <td class="text-center"><?php echo $d->nama_sesi;?></td>
+                    <td class="text-center"><?php echo $d->status;?></td>
+                    <td class="text-center"><?php echo $d->keterangan;?></td>
+                    <td class="text-center">              
+                      <a href="<?php echo base_url('booking/dataBooking/detailDataTumbang/'.$d->id_tumbang) ?>"><button type="button" class="btn btn-warning"><i class='fa fa-folder-open'></i></button></a>
+                    </td>
+                  </tr>
+                <?php endforeach; ?>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    <?php }elseif(isset($id) && $id==2 && !isset($tumbang)) { ?>
+
+      <div class="row">
         <div class="col-lg-6">
           <form method="get" action="<?php echo base_url('booking/dataBooking/tambahDataTumbangRm') ?>" role="form">
             <div class="form-group">
@@ -101,7 +115,10 @@
             </div><button type="submit" class="btn btn-success">Cari</button>
           </form>
         </div>
-        <div class="col-lg-6"><br><br>
+      </div><br><br>
+
+      <div class="row">
+        <div class="col-lg-6">
           <form method="post" action="<?php echo base_url('booking/dataBooking/tambahDataTumbangBaruAksi') ?>" role="form">
             <div class="form-group">
               <label>Nama Pasien</label>
@@ -146,9 +163,9 @@
             <button type="submit" name="submit" class="btn btn-success">Daftar</button>
           </form>
         </div>
+      </div>
+    <?php } ?>
 
-      <?php } ?>
-    </div>
   </div><!-- /.row -->
 
 </div><!-- /#page-wrapper -->

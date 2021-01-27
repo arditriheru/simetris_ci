@@ -22,12 +22,11 @@
       </div>
 
       <div class="row">
-
         <div class="col-lg-6">
 
           <?php if($id == 1){ ?>
 
-           <form method="post" action="<?php echo base_url('booking/dataAlergi/tambahDataAlergiMakananAksi/'.$id_booking) ?>" role="form">
+          <form method="post" action="<?php echo base_url('booking/dataAlergi/tambahDataAlergiMakananAksi/'.$id_booking) ?>" role="form">
             <div class="form-group">
               <label>Alergi Makanan</label>
               <input class="form-control" type="hidden" name="id_catatan_medik" value="<?php echo $rm ?>">
@@ -61,11 +60,9 @@
         <?php } ?>
 
       </div>
-    </div>
 
-  </div>
-</div><!-- /.row -->
+    </div><!-- /.row -->
 
-</div><!-- /#page-wrapper -->
+  </div><!-- /#page-wrapper -->
 
-<!--</div> /#wrapper -->
+  <!--</div> /#wrapper -->

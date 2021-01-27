@@ -6,56 +6,62 @@
 
 			<div class="row">
 				<div class="col-lg-12">
-
 					<h1><?php echo $title ?> <small><?php echo getDateIndo() ?></small></h1>
-					
 					<ol class="breadcrumb">
 						<li class="active"><i class="fa fa-dashboard"></i> Dashboard</li>
 					</ol>
 					<?php $this->load->view('templates/welcome') ?>
 					<?php echo $this->session->flashdata('alert') ?>
 				</div>
+			</div>
 
+			<div class="row">
 				<div class="col-lg-12">
 					<ul class="nav nav-pills" style="margin-bottom: 15px;">
 						<li class="active"><a href="#1" data-toggle="tab">Poliklinik</a></li>
 						<li><a href="#2" data-toggle="tab">Tumbuh Kembang</a></li>
 						<li><a href="#3" data-toggle="tab">Antenatal Care</a></li>
 					</ul>
+				</div>
+			</div>
+
+			<div class="row">
+				<div align="left" class="col-lg-6">
+					<form method="post" action="laporan-booking-hari-ini-export.php" role="form">
+						<div class="btn-group">
+							<button type="button" class="btn btn-warning">Dokter</button>
+							<button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu">
+								<li disabled selected><a>All</a></li>
+								<?php foreach($dokterpoli as $d): ?>
+									<li><a href="<?php echo base_url('booking/dataBooking/tabDataPoli/'.$d->id_dokter) ?>"><?php echo $d->nama_dokter ?></a></li>
+								<?php endforeach; ?>
+							</ul>
+						</div><!-- /btn-group -->
+					</form>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-lg-12">
 					<div id="myTabContent" class="tab-content">
 
 						<div class="tab-pane fade active in" id="1">
-
-							<div align="left" class="col-lg-6">
-								<form method="post" action="laporan-booking-hari-ini-export.php" role="form">
-									<div class="btn-group">
-										<button type="button" class="btn btn-warning">Dokter</button>
-										<button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
-											<span class="caret"></span>
-										</button>
-										<ul class="dropdown-menu">
-											<li disabled selected><a>All</a></li>
-											<?php foreach($dokterpoli as $d): ?>
-												<li><a href="<?php echo base_url('booking/dataBooking/tabDataPoli/'.$d->id_dokter) ?>"><?php echo $d->nama_dokter ?></a></li>
-											<?php endforeach; ?>
-										</ul>
-									</div><!-- /btn-group -->
-								</form>
-							</div>
-							<div align="right" class="col-lg-6">
+							<div align="right" class="col-lg-12">
 								<h1><small>Total <?php echo $totaldatapoli ?> Pasien</small></h1>
 							</div>
-
 							<div class="table-responsive">
 								<table class="table table-bordered table-hover table-striped tablesorter">
 									<thead>
 										<tr>
-											<th class="text-center">#</i></th>
-											<th class="text-center">No.RM</i></th>
-											<th class="text-center">Nama Pasien</i></th>
-											<th class="text-center">Dokter</i></th>
-											<th class="text-center">Sesi</i></th>
-											<th class="text-center">Keterangan</i></th>
+											<th class="text-center">#</th>
+											<th class="text-center">No.RM</th>
+											<th class="text-center">Nama Pasien</th>
+											<th class="text-center">Dokter</th>
+											<th class="text-center">Sesi</th>
+											<th class="text-center">Keterangan</th>
 											<th class="text-center" colspan="3">Action</th>
 										</tr>
 									</thead>
@@ -131,8 +137,7 @@
 							</div>
 
 							<div class="tab-pane fade in" id="2">
-
-								<div align="left" class="col-lg-6">
+								<div align="left" class="col-lg-12">
 									<form method="post" action="laporan-booking-hari-ini-export.php" role="form">
 										<div class="btn-group">
 											<button type="button" class="btn btn-warning">Petugas</button>
@@ -156,12 +161,12 @@
 									<table class="table table-bordered table-hover table-striped tablesorter">
 										<thead>
 											<tr>
-												<th class="text-center">#</i></th>
-												<th class="text-center">No.RM</i></th>
-												<th class="text-center">Nama Pasien</i></th>
-												<th class="text-center">Dokter</i></th>
-												<th class="text-center">Sesi</i></th>
-												<th class="text-center">Keterangan</i></th>
+												<th class="text-center">#</th>
+												<th class="text-center">No.RM</th>
+												<th class="text-center">Nama Pasien</th>
+												<th class="text-center">Dokter</th>
+												<th class="text-center">Sesi</th>
+												<th class="text-center">Keterangan</th>
 												<th class="text-center" colspan="3">Action</th>
 											</tr>
 										</thead>
@@ -205,7 +210,7 @@
 							</div>
 
 							<div class="tab-pane fade in" id="3">
-								<div align="left" class="col-lg-6">
+								<div align="left" class="col-lg-12">
 									<form method="post" action="laporan-booking-hari-ini-export.php" role="form">
 										<div class="btn-group">
 											<button type="button" class="btn btn-warning">Petugas</button>
@@ -229,12 +234,12 @@
 									<table class="table table-bordered table-hover table-striped tablesorter">
 										<thead>
 											<tr>
-												<th class="text-center">#</i></th>
-												<th class="text-center">No.RM</i></th>
-												<th class="text-center">Nama Pasien</i></th>
-												<th class="text-center">Dokter</i></th>
-												<th class="text-center">Sesi</i></th>
-												<th class="text-center">Keterangan</i></th>
+												<th class="text-center">#</th>
+												<th class="text-center">No.RM</th>
+												<th class="text-center">Nama Pasien</th>
+												<th class="text-center">Dokter</th>
+												<th class="text-center">Sesi</th>
+												<th class="text-center">Keterangan</th>
 												<th class="text-center" colspan="3">Action</th>
 											</tr>
 										</thead>

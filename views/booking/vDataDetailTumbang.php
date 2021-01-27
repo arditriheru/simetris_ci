@@ -11,14 +11,34 @@
             <li><a href="<?php echo base_url('booking/dataBooking') ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
             <li class="active"><i class="fa fa-plus"></i> <?php echo $title ?></li>
           </ol>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12">
           <?php $this->load->view('templates/welcome') ?>
         </div>
-        <div align="right" class="col-lg-6">
+      </div>
+
+      <div class="row">
+        <div class="col-lg-6">
           <?php foreach ($tumbang as $d) : ?>
-            <a href="<?php echo base_url('booking/dataBooking/deleteDataTumbang/'.$d->id_tumbang) ?>"
-              onclick="javascript: return confirm('Anda yakin hapus?')">
-              <button type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i> Hapus</button>
-            </a><br><br>
+            <div align="left" class="col-lg-6">
+              <a href="<?php echo base_url('booking/dataBooking/updateDataTumbang/'.$d->id_tumbang) ?>">
+                <button type="button" class="btn btn-success"><i class="fa fa-edit"></i> Edit</button>
+              </a>
+            </div>
+            <div align="right" class="col-lg-6">
+              <a href="<?php echo base_url('booking/dataBooking/deleteDataTumbang/'.$d->id_tumbang) ?>"
+                onclick="javascript: return confirm('Anda yakin hapus?')">
+                <button type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i> Hapus</button>
+              </a>
+            </div><br><br>
+          </div>
+        </div>
+
+        <div class="row">
+          <div align="right" class="col-lg-6">
             <div class="table-responsive">
               <table class="table table-bordered table-hover table-striped tablesorter">
                 <tbody>

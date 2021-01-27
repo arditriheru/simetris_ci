@@ -6,13 +6,16 @@
 
       <div class="row">
         <div class="col-lg-12">
-
           <h1><?php echo $title ?> <small><?php echo $subtitle ?></small></h1>
-          
           <ol class="breadcrumb">
             <li><a href="<?php echo base_url('booking/dataBooking') ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
             <li class="active"><i class="fa fa-plus"></i> <?php echo $title ?></li>
           </ol>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12">
           <?php $this->load->view('templates/welcome') ?>
         </div>
       </div>
@@ -75,7 +78,7 @@
                   </tr>
                   <tr>
                     <td><b>Status</b></td>
-                    <td><?php echo $d->nama_status ?></td>
+                    <td><?php echo $d->status ?></td>
                   </tr>
                   <tr>
                     <td><b>Keterangan</b></td>
@@ -96,7 +99,7 @@
                       <?php 
 
                       if(isset($d->id_catatan_medik_alergi)){ ?>
-                        <?php echo $d->nama_obat.', '.$d->keterangan ?>
+                        <?php echo $d->nama_obat.', '.$d->alergi_keterangan ?>
                       <?php }else{ ?>
                         Tidak ada
                       <?php } ?>

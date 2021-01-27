@@ -11,9 +11,17 @@
             <li><a href="<?php echo base_url('booking/dataBooking') ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
             <li class="active"><i class="fa fa-plus"></i> <?php echo $title ?></li>
           </ol>
+        </div>
+      </div>
 
-        <?php $this->load->view('templates/welcome') ?>
-        
+      <div class="row">
+        <div class="col-lg-12">
+          <?php $this->load->view('templates/welcome') ?>
+          <?php echo $this->session->flashdata('alert') ?>
+        </div>
+      </div>
+
+      <div class="row">
         <div class="col-lg-6">
           <form method="get" action="<?php echo base_url('booking/dataWhatsapp') ?>" role="form">
             <?php
@@ -35,14 +43,12 @@
                 <input class="form-control" type="number" name="wa" placeholder="Contoh : 089629671717">
               </div>
               <button type="submit" class="btn btn-success">Submit</button>
+              
             <?php } ?>
-
           </form>
         </div>
-      </div>
+      </div><!-- /.row -->
 
-    </div><!-- /.row -->
+    </div><!-- /#page-wrapper -->
 
-  </div><!-- /#page-wrapper -->
-
-  <!--</div> /#wrapper -->
+    <!--</div> /#wrapper -->
