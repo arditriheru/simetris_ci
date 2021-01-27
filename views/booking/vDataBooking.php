@@ -25,33 +25,34 @@
 				</div>
 			</div>
 
-			<div class="row">
-				<div align="left" class="col-lg-6">
-					<form method="post" action="laporan-booking-hari-ini-export.php" role="form">
-						<div class="btn-group">
-							<button type="button" class="btn btn-warning">Dokter</button>
-							<button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
-								<span class="caret"></span>
-							</button>
-							<ul class="dropdown-menu">
-								<li disabled selected><a>All</a></li>
-								<?php foreach($dokterpoli as $d): ?>
-									<li><a href="<?php echo base_url('booking/dataBooking/tabDataPoli/'.$d->id_dokter) ?>"><?php echo $d->nama_dokter ?></a></li>
-								<?php endforeach; ?>
-							</ul>
-						</div><!-- /btn-group -->
-					</form>
-				</div>
-			</div>
+			<div id="myTabContent" class="tab-content">
 
-			<div class="row">
-				<div class="col-lg-12">
-					<div id="myTabContent" class="tab-content">
+				<div class="tab-pane fade active in" id="1">
 
-						<div class="tab-pane fade active in" id="1">
-							<div align="right" class="col-lg-12">
-								<h1><small>Total <?php echo $totaldatapoli ?> Pasien</small></h1>
-							</div>
+					<div class="row">
+						<div align="left" class="col-lg-6">
+							<form method="post" action="laporan-booking-hari-ini-export.php" role="form">
+								<div class="btn-group">
+									<button type="button" class="btn btn-warning">Dokter</button>
+									<button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
+										<span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu">
+										<li disabled selected><a>All</a></li>
+										<?php foreach($dokterpoli as $d): ?>
+											<li><a href="<?php echo base_url('booking/dataBooking/tabDataPoli/'.$d->id_dokter) ?>"><?php echo $d->nama_dokter ?></a></li>
+										<?php endforeach; ?>
+									</ul>
+								</div><!-- /btn-group -->
+							</form>
+						</div>
+						<div align="right" class="col-lg-6">
+							<h1><small>Total <?php echo $totaldatapoli ?> Pasien</small></h1>
+						</div>
+					</div>
+
+					<div class="row">
+						<div align="right" class="col-lg-12">
 							<div class="table-responsive">
 								<table class="table table-bordered table-hover table-striped tablesorter">
 									<thead>
@@ -135,28 +136,35 @@
 									</table>
 								</div>
 							</div>
+						</div>
+					</div>
 
-							<div class="tab-pane fade in" id="2">
-								<div align="left" class="col-lg-12">
-									<form method="post" action="laporan-booking-hari-ini-export.php" role="form">
-										<div class="btn-group">
-											<button type="button" class="btn btn-warning">Petugas</button>
-											<button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
-												<span class="caret"></span>
-											</button>
-											<ul class="dropdown-menu">
-												<li disabled selected><a>All</a></li>
-												<?php foreach($doktertumbang as $d): ?>
-													<li><a href="<?php //echo base_url('booking/dataBooking/datangData/'.$d->id_petugas) ?>"><?php echo $d->nama_petugas ?></a></li>
-												<?php endforeach; ?>
-											</ul>
-										</div><!-- /btn-group -->
-									</form>
-								</div>
-								<div align="right" class="col-lg-6">
-									<h1><small>Total <?php echo $totaldatatumbang ?> Pasien</small></h1>
-								</div>
+					<div class="tab-pane fade in" id="2">
 
+						<div class="row">
+							<div align="left" class="col-lg-6">
+								<form method="post" action="laporan-booking-hari-ini-export.php" role="form">
+									<div class="btn-group">
+										<button type="button" class="btn btn-warning">Petugas</button>
+										<button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
+											<span class="caret"></span>
+										</button>
+										<ul class="dropdown-menu">
+											<li disabled selected><a>All</a></li>
+											<?php foreach($doktertumbang as $d): ?>
+												<li><a href="<?php //echo base_url('booking/dataBooking/datangData/'.$d->id_petugas) ?>"><?php echo $d->nama_petugas ?></a></li>
+											<?php endforeach; ?>
+										</ul>
+									</div><!-- /btn-group -->
+								</form>
+							</div>
+							<div align="right" class="col-lg-6">
+								<h1><small>Total <?php echo $totaldatatumbang ?> Pasien</small></h1>
+							</div>
+						</div>
+
+						<div class="row">
+							<div align="right" class="col-lg-12">
 								<div class="table-responsive">
 									<table class="table table-bordered table-hover table-striped tablesorter">
 										<thead>
@@ -208,28 +216,35 @@
 									</table>
 								</div>
 							</div>
+						</div>
+					</div>
 
-							<div class="tab-pane fade in" id="3">
-								<div align="left" class="col-lg-12">
-									<form method="post" action="laporan-booking-hari-ini-export.php" role="form">
-										<div class="btn-group">
-											<button type="button" class="btn btn-warning">Petugas</button>
-											<button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
-												<span class="caret"></span>
-											</button>
-											<ul class="dropdown-menu">
-												<li disabled selected><a>All</a></li>
-												<?php foreach($dokteranc as $d): ?>
-													<li><a href="<?php //echo base_url('booking/dataBooking/datangData/'.$d->id_petugas) ?>"><?php echo $d->nama_petugas ?></a></li>
-												<?php endforeach; ?>
-											</ul>
-										</div><!-- /btn-group -->
-									</form>
-								</div>
-								<div align="right" class="col-lg-6">
-									<h1><small>Total <?php echo $totaldataanc ?> Pasien</small></h1>
-								</div>
+					<div class="tab-pane fade in" id="3">
 
+						<div class="row">
+							<div align="left" class="col-lg-6">
+								<form method="post" action="laporan-booking-hari-ini-export.php" role="form">
+									<div class="btn-group">
+										<button type="button" class="btn btn-warning">Petugas</button>
+										<button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
+											<span class="caret"></span>
+										</button>
+										<ul class="dropdown-menu">
+											<li disabled selected><a>All</a></li>
+											<?php foreach($dokteranc as $d): ?>
+												<li><a href="<?php //echo base_url('booking/dataBooking/datangData/'.$d->id_petugas) ?>"><?php echo $d->nama_petugas ?></a></li>
+											<?php endforeach; ?>
+										</ul>
+									</div><!-- /btn-group -->
+								</form>
+							</div>
+							<div align="right" class="col-lg-6">
+								<h1><small>Total <?php echo $totaldataanc ?> Pasien</small></h1>
+							</div>
+						</div>
+
+						<div class="row">
+							<div align="right" class="col-lg-12">
 								<div class="table-responsive">
 									<table class="table table-bordered table-hover table-striped tablesorter">
 										<thead>
@@ -281,11 +296,13 @@
 									</table>
 								</div>
 							</div>
-
-						</div><!-- content -->
+						</div>
 					</div>
-				</div><!-- /.row -->
 
-			</div><!-- /#page-wrapper -->
+				</div><!-- content -->
+			</div>
+		</div><!-- /.row -->
 
-			<!--</div> /#wrapper -->
+	</div><!-- /#page-wrapper -->
+
+	<!--</div> /#wrapper -->
