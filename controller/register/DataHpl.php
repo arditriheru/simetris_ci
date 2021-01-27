@@ -77,7 +77,12 @@ class dataHpl extends CI_Controller
 		}else{
 
 			$data['title'] 		= "Tambah";
-			$data['datadokter'] = $this->mSimetris->dataDokterUnit("2")->result();
+			$where 				= array(
+				'id_unit' 		=> 2,
+				'status' 		=> 1
+			);
+			
+			$data['datadokter'] = $this->mSimetris->dataDokter("dokter",$where,"nama_dokter ASC")->result();
 			$data['record']		=  $this->mSimetris->getData('mr_pasien');
 			
 		}
