@@ -46,11 +46,11 @@
                   <td>No. Identitas</td>
                   <td><?php echo $d->no_identitas ?></td>
                   <td>Alamat</td>
-                  <td><?php echo $d->alamat ?></td>
+                  <td><?php echo strtoupper($d->alamat) ?></td>
                 </tr>
                 <tr>
                   <td>Nama Pasien</td>
-                  <td><?php echo $d->nama ?></td>
+                  <td><?php echo strtoupper($d->nama) ?></td>
                   <td>Email</td>
                   <td><?php echo $d->email ?></td>
                 </tr>
