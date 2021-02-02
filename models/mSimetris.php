@@ -454,11 +454,20 @@ function dataKamar($where)
 // 	return $this->db->get();
 // }
 
+// function dataSwab()
+// {
+// 	$this->db->select('booking_swab.*, mr_sex.nama_sex, jadwal_swab.hari, jadwal_swab.pukul');
+// 	$this->db->from('booking_swab');
+// 	$this->db->join('mr_sex','booking_swab.id_sex = mr_sex.id_sex');
+// 	$this->db->join('jadwal_swab','booking_swab.id_jadwal_swab = jadwal_swab.id_jadwal_swab');
+// 	return $this->db->get();
+// }
+
 
 /*
 |--------------------------------------------------------------------------
 |
-| Model rapidtest
+| Model covid
 |
 |--------------------------------------------------------------------------
 */
@@ -530,6 +539,26 @@ function ExcelDataRapidtest($awal,$akhir)
 		AND rapidtest.id_unit=mr_unit.id_unit
 		AND rapidtest.tanggal BETWEEN '$awal' AND '$akhir'");
 	return $query;
+}
+
+function dataSwab()
+{
+	$this->db->select('booking_swab.*, mr_sex.nama_sex, jadwal_swab.hari, jadwal_swab.pukul');
+	$this->db->from('booking_swab');
+	$this->db->join('mr_sex','booking_swab.id_sex = mr_sex.id_sex');
+	$this->db->join('jadwal_swab','booking_swab.id_jadwal_swab = jadwal_swab.id_jadwal_swab');
+	$this->db->order_by('booking_swab.id_booking_swab DESC');
+	return $this->db->get();
+}
+
+function dataSwabDetail($where)
+{
+	$this->db->select('booking_swab.*, mr_sex.nama_sex, jadwal_swab.hari, jadwal_swab.pukul');
+	$this->db->from('booking_swab');
+	$this->db->join('mr_sex','booking_swab.id_sex = mr_sex.id_sex');
+	$this->db->join('jadwal_swab','booking_swab.id_jadwal_swab = jadwal_swab.id_jadwal_swab');
+	$this->db->where($where);
+	return $this->db->get();
 }
 
 /*
