@@ -328,6 +328,10 @@ class dataBooking extends CI_Controller
 		$data['tumbang'] 	= $this->mSimetris->dataRegisterTumbang($where2)->result();
 		$data['anc'] 		= $this->mSimetris->dataRegisterAnc($where3)->result();
 		$data['mandiri'] 	= $this->mSimetris->dataRegisterPoli($where4)->result();
+		$data['jmlpoli'] 	= $this->mSimetris->dataRegisterPoli($where1)->num_rows();
+		$data['jmltumbang'] = $this->mSimetris->dataRegisterTumbang($where2)->num_rows();
+		$data['jmlanc'] 	= $this->mSimetris->dataRegisterAnc($where3)->num_rows();
+		$data['jmlmandiri'] = $this->mSimetris->dataRegisterPoli($where4)->num_rows();
 
 		$this->load->view('templates/header',$data);
 		$this->load->view('booking/vMenu',$data);
