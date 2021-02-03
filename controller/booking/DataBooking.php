@@ -528,7 +528,7 @@ class dataBooking extends CI_Controller
 						$this->mSimetris->insertData('booking',$data);
 						$this->session->set_flashdata('alert','<div class="alert alert-success alert-dismissable">
 							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-							Berhasil mendaftar, <font size="4"><b>Nomor Antrian : 
+							<strong>Berhasil mendaftar </strong><font size="4"><b>Nomor Antrian : 
 							'.$noant.'</b></font></div>');
 						redirect('booking/dataBooking/tambahDataPoli/'.$id);
 
@@ -681,7 +681,7 @@ class dataBooking extends CI_Controller
 							$this->mSimetris->insertData('booking',$data);
 							$this->session->set_flashdata('alert','<div class="alert alert-success alert-dismissable">
 								<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-								Berhasil mendaftar <font size="4"><b>Nomor Antrian : 
+								<strong>Berhasil mendaftar </strong><font size="4"><b>Nomor Antrian : 
 								'.$noant.'</b></font></div>');
 							redirect('booking/dataBooking/tambahDataPoli/'.$id);
 
@@ -905,7 +905,7 @@ class dataBooking extends CI_Controller
 			$this->mSimetris->insertData('tumbang',$data);
 			$this->session->set_flashdata('alert','<div class="alert alert-success alert-dismissable">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-				Berhasil mendaftar <font size="4"><b>Nomor Antrian : 
+				<strong>Berhasil mendaftar </strong><font size="4"><b>Nomor Antrian : 
 				'.$noant.'</b></font></div>');
 			redirect('booking/dataBooking/tambahDataTumbang/'.$id);
 
@@ -989,7 +989,7 @@ class dataBooking extends CI_Controller
 				$this->mSimetris->insertData('tumbang',$data);
 				$this->session->set_flashdata('alert','<div class="alert alert-success alert-dismissable">
 					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-					Berhasil mendaftar <font size="4"><b>Nomor Antrian : 
+					<strong>Berhasil mendaftar </strong><font size="4"><b>Nomor Antrian : 
 					'.$noant.'</b></font></div>');
 				redirect('booking/dataBooking/tambahDataTumbang/'.$id);
 
@@ -1007,7 +1007,7 @@ class dataBooking extends CI_Controller
 			'id_tumbang' => $id
 		);
 
-		$data['data'] = $this->mSimetris->dataTumbang($where,"booking.id_booking ASC")->result();
+		$data['data'] = $this->mSimetris->dataTumbang($where,"tumbang.id_tumbang ASC")->result();
 
 		$this->load->view('templates/header',$data);
 		$this->load->view('booking/vMenu',$data);
@@ -1211,7 +1211,7 @@ class dataBooking extends CI_Controller
 			$this->mSimetris->insertData('anc',$data);
 			$this->session->set_flashdata('alert','<div class="alert alert-success alert-dismissable">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-				Berhasil mendaftar <font size="4"><b>Nomor Antrian : 
+				<strong>Berhasil mendaftar </strong><font size="4"><b>Nomor Antrian : 
 				'.$noant.'</b></font></div>');
 			redirect('booking/dataBooking/tambahDataAnc/'.$id);
 
@@ -1295,12 +1295,59 @@ class dataBooking extends CI_Controller
 				$this->mSimetris->insertData('anc',$data);
 				$this->session->set_flashdata('alert','<div class="alert alert-success alert-dismissable">
 					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-					Berhasil mendaftar <font size="4"><b>Nomor Antrian : 
+					<strong>Berhasil mendaftar </strong><font size="4"><b>Nomor Antrian : 
 					'.$noant.'</b></font></div>');
 				redirect('booking/dataBooking/tambahDataAnc/'.$id);
 
 			}
 		}
+
+	}
+
+	public function updateDataAnc($id)
+	{
+		$data['title'] 		= "Update";
+		$data['subtitle'] 	= "ANC Terpadu";
+
+		$where = array(
+			'id_anc' => $id
+		);
+
+		$data['data'] = $this->mSimetris->dataAnc($where,"anc.id_anc ASC")->result();
+
+		$this->load->view('templates/header',$data);
+		$this->load->view('booking/vMenu',$data);
+		$this->load->view('booking/vUpdateDataAnc',$data);
+		$this->load->view('templates/footer',$data);
+	}
+
+	public function updateDataAncAksi()
+	{
+		$id 		= $this->input->post('id');
+		$nama 		= $this->input->post('nama');
+		$alamat 	= $this->input->post('alamat');
+		$kontak 	= $this->input->post('kontak');
+		$keterangan = $this->input->post('keterangan');
+
+		$data = array(
+
+			'nama' 		 => $nama,
+			'alamat' 	 => $alamat,
+			'kontak' 	 => $kontak,
+			'keterangan' => $keterangan,
+
+		);
+
+		$where = array(
+			'id_anc' 		=> $id
+		);
+
+		$this->mSimetris->updateData('anc',$data,$where);
+		$this->session->set_flashdata('alert','<div class="alert alert-success alert-dismissable">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			<font size="4">Data berhasil diupdate</font>
+			</div>');
+		redirect('booking/dataBooking/detailDataAnc/'.$id);
 
 	}
 
