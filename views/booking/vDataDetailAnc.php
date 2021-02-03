@@ -22,12 +22,24 @@
       </div>
 
       <div class="row">
-        <div align="right" class="col-lg-6">
+        <div class="col-lg-6">
           <?php foreach ($anc as $d) : ?>
-            <a href="<?php echo base_url('booking/dataBooking/deleteDataAnc/'.$d->id_anc) ?>"
-              onclick="javascript: return confirm('Anda yakin hapus?')">
-              <button type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i> Hapus</button>
-            </a><br><br>
+            <div align="left" class="col-lg-6">
+              <a href="<?php echo base_url('booking/dataBooking/updateDataAnc/'.$d->id_anc) ?>">
+                <button type="button" class="btn btn-success"><i class="fa fa-edit"></i> Edit</button>
+              </a>
+            </div>
+            <div align="right" class="col-lg-6">
+              <a href="<?php echo base_url('booking/dataBooking/deleteDataAnc/'.$d->id_anc) ?>"
+                onclick="javascript: return confirm('Anda yakin hapus?')">
+                <button type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i> Hapus</button>
+              </a>
+            </div><br><br>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6">
             <div class="table-responsive">
               <table class="table table-bordered table-hover table-striped tablesorter">
                 <tbody>

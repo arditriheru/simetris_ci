@@ -17,6 +17,7 @@
       <div class="row">
         <div class="col-lg-12">
           <?php $this->load->view('templates/welcome') ?>
+          <?php echo $this->session->flashdata('alert') ?>
         </div>
       </div>
 
