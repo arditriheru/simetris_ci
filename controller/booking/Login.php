@@ -44,7 +44,7 @@ class login extends CI_Controller
 			$userdata = array(
 				'booking_id_petugas'  		=> $cek->id_petugas,
 				'booking_nama_petugas'     	=> $cek->nama,
-				'booking_login'  			=> '1',
+				'login'  					=> '1',
 				'hello'     				=> $cek->nama,
 			);
 

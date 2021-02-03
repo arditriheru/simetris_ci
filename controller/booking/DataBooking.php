@@ -7,7 +7,7 @@ class dataBooking extends CI_Controller
 	{
 		parent::__construct();
 
-		if($this->session->userdata('booking_login') !='1')
+		if($this->session->userdata('login') !='1')
 		{
 			$this->session->set_flashdata('alert','<div class="alert alert-danger alert-dismissable">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -193,7 +193,7 @@ class dataBooking extends CI_Controller
 			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 			<font size="4">Data berhasil diupdate</font>
 			</div>');
-		redirect('booking/dataBooking/');
+		redirect('booking/dataBooking/detailDataPoli/'.$id);
 
 	}
 
@@ -1001,17 +1001,17 @@ class dataBooking extends CI_Controller
 	public function updateDataTumbang($id)
 	{
 		$data['title'] 		= "Update";
-		$data['subtitle'] 	= "Poliklinik";
+		$data['subtitle'] 	= "Tumbuh Kembang";
 
 		$where = array(
-			'id_booking' => $id
+			'id_tumbang' => $id
 		);
 
-		$data['datapoli'] = $this->mSimetris->dataPoli($where,"booking.id_booking ASC")->result();
+		$data['data'] = $this->mSimetris->dataTumbang($where,"booking.id_booking ASC")->result();
 
 		$this->load->view('templates/header',$data);
 		$this->load->view('booking/vMenu',$data);
-		$this->load->view('booking/vUpdateDataPoli',$data);
+		$this->load->view('booking/vUpdateDataTumbang',$data);
 		$this->load->view('templates/footer',$data);
 	}
 
@@ -1033,15 +1033,15 @@ class dataBooking extends CI_Controller
 		);
 
 		$where = array(
-			'id_booking' 		=> $id
+			'id_tumbang' 		=> $id
 		);
 
-		$this->mSimetris->updateData('booking',$data,$where);
+		$this->mSimetris->updateData('tumbang',$data,$where);
 		$this->session->set_flashdata('alert','<div class="alert alert-success alert-dismissable">
 			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 			<font size="4">Data berhasil diupdate</font>
 			</div>');
-		redirect('booking/dataBooking/');
+		redirect('booking/dataBooking/detailDataTumbang/'.$id);
 
 	}
 
