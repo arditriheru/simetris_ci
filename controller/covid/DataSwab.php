@@ -47,7 +47,7 @@ class dataSwab extends CI_Controller
 		$this->load->view('templates/footer',$data);
 	}
 
-	public function print($id)
+	public function pdf($id,$no)
 	{
 		$data['title'] 		= "Cetak";
 		$data['subtitle'] 	= "Invoice";
@@ -58,9 +58,12 @@ class dataSwab extends CI_Controller
 
 		$data['data'] = $this->mSimetris->dataSwabDetail($where)->result();
 
-		$this->load->view('templates/header',$data);
-		$this->load->view('booking/vMenu',$data);
-		$this->load->view('covid/vPrintDataInvoice',$data);
+		$this->load->library('pdf');
+
+		$this->pdf->setPaper('A4', 'potrait');
+		$this->pdf->filename = $no.".pdf";
+		$this->pdf->view('covid/vPrintDataInvoice', $data);
+
 	}
 
 	public function ubahOk($id)
@@ -79,23 +82,6 @@ class dataSwab extends CI_Controller
 
 		$this->mSimetris->updateData('booking_swab',$data,$where);
 		redirect('covid/dataSwab/');
-	}
-
-	public function laporan(){
-
-		$data = array(
-			"dataku" => array(
-				"nama" => "Petani Kode",
-				"url" => "http://petanikode.com"
-			)
-		);
-
-		$this->load->library('pdf');
-		$this->pdf->setPaper('A4', 'potrait');
-		$this->pdf->filename = "laporan-petanikode.pdf";
-		$this->pdf->load_view('covid/vLaporanPdf', $data);
-
-
 	}
 
 }
