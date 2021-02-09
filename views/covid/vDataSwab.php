@@ -52,9 +52,17 @@
                   <td class="text-center"><?php echo $d->no_identitas; ?></td>
                   <td class="text-center"><?php echo strtoupper($d->nama); ?></td>
                   <td class="text-center"><?php echo $d->hari.', '.$d->pukul; ?></td>
-                  <td class="text-center"><a type="button" class="btn btn-success" href="<?php echo base_url('covid/dataSwab/berkas/').$d->file_identitas; ?>"><i class='fa fa-id-card-o'></i></a></td>
-                  <td class="text-center"><a type="button" class="btn btn-primary" href="<?php echo base_url('covid/dataSwab/berkas/').$d->file_pembayaran; ?>"><i class='fa fa-file-text-o'></i></a></td>
-                  <td class="text-center"><a type="button" class="btn btn-warning" href="<?php echo base_url('covid/dataSwab/print/').$d->id_booking_swab; ?>"><i class='fa fa-print'></i></a></td>
+                  <?php if(isset($d->file_identitas)){ ?>
+                    <td class="text-center"><a type="button" class="btn btn-success" href="<?php echo base_url('covid/dataSwab/berkas/').$d->file_identitas; ?>"><i class='fa fa-id-card-o'></i></a></td>
+                  <?php }else{ ?>
+                    <td class="text-center"><a type="button" class="btn btn-success"><i class='fa fa-remove'></i></a></td>
+                  <?php } if(isset($d->file_pembayaran)){ ?>
+                    <td class="text-center"><a type="button" class="btn btn-primary" href="<?php echo base_url('covid/dataSwab/berkas/').$d->file_pembayaran; ?>"><i class='fa fa-file-text-o'></i></a></td>
+                  <?php }else{ ?>
+                    <td class="text-center"><a type="button" class="btn btn-primary"><i class='fa fa-remove'></i></a></td>
+                  <?php } ?>
+                  
+                  <td class="text-center"><a type="button" class="btn btn-warning" href="<?php echo base_url('covid/dataSwab/pdf/').$d->id_booking_swab.'/'.strtoupper($d->no_invoice); ?>" target="_blank"><i class='fa fa-pdf'></i></a></td>
                 </tr>
               <?php endforeach; ?>
             </tbody>
