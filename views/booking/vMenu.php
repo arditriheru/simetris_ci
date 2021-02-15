@@ -16,7 +16,7 @@
     <ul class="nav navbar-nav side-nav">
       <li><a href="<?php echo base_url('booking/dataBooking') ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
       <li><a href="<?php echo base_url('booking/dataBooking/dataRegister') ?>"><i class="fa fa-check-square-o"></i> Hari Ini</a></li>
-      <li><a href="<?php echo base_url('covid/dataSwab') ?>"><i class="fa fa-check-square-o"></i> SWAB Antigen</a></li>
+      <li><a href="<?php echo base_url('covid/dataSwab') ?>"><i class="fa fa-check-square-o"></i> Antigen</a></li>
 
       <?php if($this->session->userdata('booking_akses')=='Admin'){ ?>
 
@@ -95,6 +95,11 @@
               <li>
                 <a href="<?php echo base_url('booking/dataBooking/dataRedZone') ?>">
                   <i class="fa fa-warning"></i> Zona Merah
+                </a>
+              </li>
+              <li>
+                <a href="<?php echo base_url('booking/dataBooking/dataRedZone') ?>">
+                  <i class="fa fa-file-text-o"></i> Laporan
                 </a>
               </li>
               <li>-<br><br></li>
