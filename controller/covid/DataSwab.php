@@ -47,21 +47,23 @@ class dataSwab extends CI_Controller
 		$this->load->view('templates/footer',$data);
 	}
 
-	public function pdf($id,$no)
+	public function pdf($id)
 	{
-		$data['title'] 		= "Cetak";
+		$data['title'] 		= "PDF";
 		$data['subtitle'] 	= "Invoice";
 
-		$where = array(
+		$no_inv = "INV".$id;
+
+		$where 	= array(
 			'id_booking_swab' 	=> $id,
 		);
 
-		$data['data'] = $this->mSimetris->dataSwabDetail($where)->result();
+		$data['data'] 	= $this->mSimetris->dataSwabDetail($where)->result();
+		$data['no_inv'] = $no_inv;
 
 		$this->load->library('pdf');
-
 		$this->pdf->setPaper('A4', 'potrait');
-		$this->pdf->filename = $no.".pdf";
+		$this->pdf->filename = $no_inv.".pdf";
 		$this->pdf->view('covid/vPrintDataInvoice', $data);
 
 	}
