@@ -62,7 +62,7 @@
                     <td class="text-center"><a type="button" class="btn btn-primary"><i class='fa fa-remove'></i></a></td>
                   <?php } ?>
                   
-                  <td class="text-center"><a type="button" class="btn btn-warning" href="<?php echo base_url('covid/dataSwab/pdf/').$d->id_booking_swab.'/'.strtoupper($d->no_invoice); ?>" target="_blank"><i class='fa fa-pdf'></i></a></td>
+                  <td class="text-center"><a type="button" class="btn btn-warning" href="<?php echo base_url('covid/dataSwab/pdf/').$d->id_booking_swab; ?>" target="_blank"><i class='fa fa-print'></i></a></td>
                 </tr>
               <?php endforeach; ?>
             </tbody>

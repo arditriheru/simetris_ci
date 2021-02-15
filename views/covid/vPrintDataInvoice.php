@@ -1,162 +1,302 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title><?php echo getTopTitle()." - ".$title." ".$subtitle ?></title>
-
-  <!-- Bootstrap core CSS -->
-  <link href="<?php echo base_url() ?>assets/css/bootstrap.css" rel="stylesheet">
-
-  <!-- Add custom CSS here -->
-  <link href="<?php echo base_url() ?>assets/css/sb-admin.css" rel="stylesheet">
-  <link rel="stylesheet" href="<?php echo base_url() ?>assets/font-awesome/css/font-awesome.min.css">
+  <title><?php echo $title.' '.$subtitle.' '.$no_inv ?></title>
 
   <style>
-    #table {
-      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-      border-collapse: collapse;
+    .fixed-footer {
+     font-size: 12px;
+     position: fixed;
+     left: 0;
+     right: 50px;
+     bottom: 0;
+     width: 98%;
+     height: 20px;
+     text-align: center;
+   }
+
+   div.text-center {
+    text-align: center;
+  }
+
+  div.text-left {
+    text-align: left;
+  }
+
+  div.text-right {
+    text-align: right;
+  } 
+
+  div.text-justify {
+    text-align: justify;
+  } 
+
+  .invoice-box {
+    max-width: 800px;
+    margin: auto;
+    padding: 10px;
+    border: 1px solid #eee;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+    font-size: 15px;
+    line-height: 18px;
+    font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+    color: #555;
+  }
+
+  .invoice-box table {
+    width: 100%;
+    line-height: inherit;
+    text-align: left;
+  }
+
+  .invoice-box table td {
+    padding: 5px;
+    vertical-align: top;
+  }
+
+  .invoice-box table tr td:nth-child(2) {
+    text-align: right;
+  }
+
+  .invoice-box table tr.top table td {
+    padding-bottom: 5px;
+  }
+
+  .invoice-box table tr.top table td.title {
+    font-size: 45px;
+    line-height: 45px;
+    color: #333;
+  }
+
+  .invoice-box table tr.information table td {
+    padding-left: 6px;
+    padding-bottom: 1px;
+    line-height: 16px;
+  }
+
+  .invoice-box table tr.heading td {
+    background: #eee;
+    padding-left: 13px;
+    padding-right: 13px;
+    border-bottom: 1px solid #ddd;
+    font-weight: bold;
+  }
+
+  .invoice-box table tr.details td {
+    padding-bottom: 20px;
+  }
+
+  .invoice-box table tr.item td{
+    padding-left: 13px;
+    padding-right: 13px;
+    border-bottom: 1px solid #eee;
+  }
+
+  .invoice-box table tr.item.last td {
+    border-bottom: none;
+  }
+
+  .invoice-box table tr.total td:nth-child(2) {
+    padding-right: 13px;
+    border-top: 2px solid #eee;
+    font-weight: bold;
+  }
+
+  @media only screen and (max-width: 600px) {
+    .invoice-box table tr.top table td {
       width: 100%;
-      font-size: 13px;
+      display: block;
+      text-align: center;
     }
 
-    #table td, #table th {
-      border: 0px solid #ddd;
-      padding: 8px;
-    }
-
-    #table tr:hover {
-      background-color: #ddd;
-    }
-
-    #table th {
-      padding-top: 10px;
-      padding-bottom: 10px;
-      text-align: left;
-      background-color: #f2a154;
-      color: white;
-    }
-
-    #table2 {
-      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-      border-collapse: collapse;
+    .invoice-box table tr.information table td {
       width: 100%;
-      font-size: 13px;
-    }
-
-    #table2 td, #table2 th {
-      border: 1px solid #ddd;
-      padding: 8px;
-    }
-
-    #table2 tr:hover {
-      background-color: #ddd;
-    }
-
-    #table2 th {
-      padding-top: 10px;
-      padding-bottom: 10px;
+      display: block;
       text-align: left;
-      background-color: #f2a154;
-      color: white;
     }
-  </style>
+  }
+
+  /** RTL **/
+  .rtl {
+    direction: rtl;
+    font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+  }
+
+  .rtl table {
+    text-align: right;
+  }
+
+  .rtl table tr td:nth-child(2) {
+    text-align: left;
+  }
+</style>
 </head>
+
 <body>
-  <table id="table" width="100%">
-   <tbody>
-     <tr>
-      <td style="text-align:left">
-        <h3>RSKIA Rachmi Yogyakarta</h3>
-        <p>Rumah Sakit Khusus Ibu dan Anak Rachmi Yogyakarta<br>
-          Jalan KH Wachid Hayim No.47, Ngampilan, Kota Yogyakarta<br>
-          D.I.Yogyakarta<br>
-        (0274) 376717 / (0274) 415316</p>
+  <?php foreach ($data as $d) :?>
+    <div class="invoice-box">
+     <table cellpadding="0" cellspacing="0">
+      <tr class="top">
+        <td>
+          <img src="<?php echo base_url('assets/images/header.jpg')?>"/>
+        </td>
+        <td>
+          <h2>#INVOICE</h2>
+        </td>
+      </tr>
+      
+      <tr class="top">
+        <td colspan="2">
+          <table>
+            <tr>
+             <td>
+              <strong>RSKIA Rachmi Yogyakarta</strong><br>
+              <small>Jalan KH Wachid Hayim No.47 Ngampilan<br>
+                Kota Yogyakarta<br>D.I.Yogyakarta<br>
+              (0274) 376717 / (0274) 415316</small>
+            </td>
+          </tr>
+        </table>
       </td>
-      <td style="text-align:right;"><h1>#INVOICE</h1></td>
     </tr>
-  </tbody>
+
+    <tr class="top">
+      <td colspan="2">
+        <table>
+          <tr>
+           <td>
+            <strong>Pemeriksaan SWAB Antigen</strong><br>
+            <small>Registrasi : <?php echo formatDateIndo($d->tanggal); ?><br>
+              Jam : <?php echo $d->jam.' WIB'; ?></small>
+            </td>
+            <td>
+              <strong></strong><br>
+              <small><strong>DATE :</strong> <?php echo getDateIndo(); ?><br>
+                <strong>NO. INVOICE :</strong> <?php echo $no_inv; ?></small>
+              </td>
+            </tr>
+          </table><br>
+        </td>
+      </tr>
+
+      <tr class="heading">
+        <td colspan="2">
+          Identitas Pasien
+        </td>
+      </tr>
+
+      <tr class="information">
+        <td colspan="2">
+          <table>
+            <tr>
+             <td>
+              <div class="text-left">
+                <small>No. Identitas</small>
+              </div>
+            </td>
+            <td>
+              <div class="text-left">
+                <small><i><?php echo $d->no_identitas ?></i></small>
+              </div>
+            </td>
+            <td>
+              <div class="text-left">
+                <small>Email</small>
+              </div>
+            </td>
+            <td>
+              <div class="text-left">
+                <small><i><?php echo $d->email ?></i></small>
+              </div>
+            </td>
+          </tr>
+          <tr>
+           <td>
+            <div class="text-left">
+              <small>Nama Pasien</small>
+            </div>
+          </td>
+          <td>
+            <div class="text-left">
+              <small><i><?php echo $d->nama ?></i></small>
+            </div>
+          </td>
+          <td>
+            <div class="text-left">
+              <small>Kontak</small>
+            </div>
+          </td>
+          <td>
+            <div class="text-left">
+              <small><i><?php echo $d->kontak ?></i></small>
+            </div>
+          </td>
+        </tr>
+        <tr>
+         <td>
+          <div class="text-left">
+            <small>Tanggal Lahir</small>
+          </div>
+        </td>
+        <td>
+          <div class="text-left">
+            <small><i><?php echo formatDateIndo($d->tgl_lahir) ?></i></small>
+          </div>
+        </td>
+      </tr>
+    </table><br><br>
+  </td>
+</tr>
+
+<tr class="heading">
+  <td>
+    Deskripsi
+  </td>
+
+  <td>
+    Sub Total
+  </td>
+</tr>
+
+<tr class="item">
+  <td>
+    Pembayaran : Pemeriksaan SWAB Antigen
+  </td>
+
+  <td>
+    IDR 250.000
+  </td>
+</tr>
+
+<tr class="total">
+  <td></td>
+
+  <td>
+    Total: IDR 250.000
+  </td>
+</tr>
+
+
+<tr class="heading">
+  <td>
+    Status
+  </td>
+  <td>
+    <?php if($d->validasi==0){ ?>
+      PENDING
+    <?php }else{ ?>
+      LUNAS
+    <?php } ?>
+  </td>
+</tr><br><br>
 </table>
-<?php foreach ($data as $d) :?>
-  <table id="table" width="100%" style="text-align:left">
-    <thead>
-      <tr>
-        <th style="text-align:center" colspan="4">PEMERIKSAAN SWAB ANTIGEN</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><strong>Registrasi</strong></td>
-        <td><?php echo formatDateIndo($d->tanggal); ?></td>
-        <td><strong>DATE</strong></td>
-        <td><?php echo getDateIndo(); ?></td>
-      </tr>
-      <tr>
-        <td><strong>Jam</strong></td>
-        <td><?php echo $d->jam.' WIB'; ?></td>
-        <td><strong>NO. INVOICE</strong></td>
-        <td><?php echo strtoupper($d->no_invoice); ?></td>
-      </tr>
-    </tbody>
-  </table><br>
-  <table id="table" width="100%" style="text-align:left">
-    <thead>
-      <tr>
-        <th style="text-align:center" colspan="4">IDENTITAS PASIEN</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><strong>No. Identitas</strong></td>
-        <td><?php echo $d->no_identitas ?></td>
-        <td><strong>Alamat</strong></td>
-        <td><?php echo $d->alamat ?></td>
-      </tr>
-      <tr>
-        <td><strong>Nama Pasien</strong></td>
-        <td><?php echo $d->nama ?></td>
-        <td><strong>Email</strong></td>
-        <td><?php echo $d->email ?></td>
-      </tr>
-      <tr>
-        <td><strong>Tgl. Lahir</strong></td>
-        <td><?php echo formatDateIndo($d->tgl_lahir) ?></td>
-        <td><strong>Kontak</strong></td>
-        <td><?php echo $d->kontak ?></td>
-      </tr>
-    </tbody>
-  </table><br>
-  <table id="table2" width="100%" style="text-align:left">
-    <thead>
-      <tr>
-       <th style="text-align:center"><b>DESKRIPSI</b></th>
-       <th style="text-align:center"><b>SUB TOTAL</b></th>
-     </tr>
-   </thead>
-   <tbody>
-     <tr>
-      <td style="text-align:center">Pembayaran : Pemeriksaan SWAB Antigen</td>
-      <td style="text-align:center">IDR250.000</td>
-    </tr>
-    <tr>
-      <td style="text-align:center"><b>TOTAL</b></td>
-      <td style="text-align:center"><b>IDR250.000</b></td>
-    </tr>
-    <tr>
-      <td colspan="2" style="text-align:center"><b>STATUS : 
-        <?php if($d->validasi==0){ ?>
-          PENDING
-        <?php }else{ ?>
-          LUNAS
-        <?php } ?>
-      </b></td>
-    </tr>
-  </tbody>
-</table>
-<div align="right"><p><small>Printed : <?php echo getDateIndo(); ?></small></p></div>
+<div class="fixed-footer"><p><small>SIMETRIS - RSKIA Rachmi Yogyakarta | Printed : <?php echo getDateIndo().' / '.getTimenow(); ?></small></p></div>
+</div>
 <?php endforeach; ?>
 </body>
 </html>
