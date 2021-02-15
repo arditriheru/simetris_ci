@@ -23,6 +23,7 @@
               <li><a href="<?php echo base_url('manajemen/dataFarmasi/dataEdObat/1') ?>">Expired Date Obat</a></li>
             </ul>
           </li>
+          <li><a href="<?php echo base_url('manajemen/dataManajemen/exportCustom') ?>"><i class="fa fa-file-excel-o"></i> Export Custom</a></li>
         <?php } ?>
       </ul>
 
