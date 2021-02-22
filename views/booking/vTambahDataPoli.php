@@ -56,7 +56,7 @@
       <?php }elseif(isset($booking)) { ?>
 
         <div class="row">
-          <div class="col-lg-6">
+          <div class="col-lg-12">
             <div class="table-responsive">
               <table class="table table-bordered table-hover table-striped tablesorter">
                 <thead>
@@ -85,7 +85,7 @@
                     <td class="text-center"><?php echo $d->nama_sesi;?></td>
                     <td class="text-center"><?php echo $d->status;?></td>
                     <td class="text-center"><?php echo $d->keterangan;?></td>
-                    <td class="text-center">              
+                    <td class="text-center">
                       <a href="<?php echo base_url('booking/dataBooking/detailDataPoli/'.$d->id_booking) ?>"><button type="button" class="btn btn-warning"><i class='fa fa-folder-open'></i></button></a>
                     </td>
                   </tr>
